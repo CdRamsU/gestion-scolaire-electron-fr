@@ -1,0 +1,16 @@
+.git
+.gitignore
+node_modules
+server/node_modules
+dist
+dist-electron
+build
+tmp
+temp
+coverage
+.cache
+__MACOSX
+*.log
+server/backups
+*.zip
+*.pdf

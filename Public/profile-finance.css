@@ -1,0 +1,36 @@
+#studentProfileModal .student-profile-card{width:min(1440px,96vw);max-width:1440px;max-height:94vh;display:flex;flex-direction:column}
+#studentProfileModal .student-profile-head{flex-shrink:0;background:var(--panel);border-bottom:1px solid var(--border);padding:20px 24px}
+#studentProfileModal .modal-body{overflow:auto;padding:0 24px 24px}
+#studentProfileModal .student-profile-tabs{position:sticky;top:0;z-index:3;background:var(--panel);padding:14px 0;margin-bottom:18px;border-bottom:1px solid var(--border)}
+#studentProfileModal .student-profile-tab{font-size:15px}
+#profileFinanceWorkspace[hidden]{display:none}
+.pf-finance-heading{display:flex;justify-content:space-between;gap:20px;align-items:center}
+.pf-finance-heading h3{font-size:22px;margin:0 0 7px;color:var(--heading)}
+.pf-finance-heading p,.pf-finance-note{font-size:14px;line-height:1.7;color:var(--muted)}
+.pf-finance-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:18px 0}
+.pf-finance-summary article{border:1px solid var(--border);border-radius:10px;padding:18px;background:var(--panel)}
+.pf-finance-summary span{display:block;color:var(--muted);font-size:13px;line-height:1.5}
+.pf-finance-summary strong{display:block;font-size:23px;line-height:1.5;margin-top:10px;font-variant-numeric:tabular-nums}
+.pf-finance-summary article:nth-child(3) strong{color:var(--warning)}
+.pf-finance-summary article:last-child strong{font-size:16px}
+.pf-finance-grid{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:18px;align-items:start}
+.pf-finance-grid>div{min-width:0}
+.pf-fee-matrix{width:100%;min-width:900px}
+.pf-fee-matrix caption{text-align:left;padding:12px;font-size:14px;color:var(--muted)}
+.pf-fee-matrix th{font-size:13px;white-space:nowrap;padding:12px}
+.pf-fee-matrix tbody th{position:sticky;left:0;z-index:1;background:var(--panel2);max-width:200px;white-space:normal}
+.pf-fee-matrix td{padding:7px}
+.pf-month{min-height:44px;width:100%;padding:8px 10px;font:500 13px/1.4 var(--font);border:1px solid var(--border-strong);border-radius:7px;background:var(--panel);color:var(--muted);cursor:pointer;white-space:nowrap}
+.pf-month[data-state=paid]{color:var(--success);background:var(--success-soft)}
+.pf-month[data-state=partial],.pf-month[data-state=unpaid]{color:var(--warning);background:var(--warning-soft)}
+.pf-month[aria-pressed=true]{outline:2px solid var(--focus);outline-offset:1px}
+.pf-finance-detail{border:1px solid var(--border);background:var(--panel2);border-radius:10px;padding:18px;position:sticky;top:76px;overflow-wrap:anywhere}
+.pf-finance-detail h4,.pf-other-fees h4{font-size:16px;margin:0 0 12px}
+.pf-finance-detail p{font-size:14px;line-height:1.6;color:var(--muted)}
+.pf-finance-detail dl>div{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);font-size:15px}
+.pf-finance-detail dd{font-weight:700;margin:0}
+.pf-other-fees{padding:18px 0}.pf-other-fees button{margin:0 8px 8px 0}
+.pf-linked-receipt{display:grid;gap:8px;border-top:1px solid var(--border);padding:13px 0;font-size:14px}
+#studentProfileModal .tiny{font-size:13px}#studentProfileModal td{font-size:14px;line-height:1.6}
+@media(max-width:1000px){.pf-finance-grid{grid-template-columns:1fr}.pf-finance-detail{position:static}.pf-finance-summary{grid-template-columns:1fr 1fr}}
+@media(max-width:550px){#studentProfileModal .modal-body{padding:0 12px 16px}.pf-finance-summary article{padding:12px}.pf-finance-summary strong{font-size:20px}.pf-finance-heading{align-items:flex-start}.pf-finance-heading h3{font-size:19px}}

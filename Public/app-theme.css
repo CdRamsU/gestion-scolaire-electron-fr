@@ -1,0 +1,233 @@
+/* Installation-wide screen palette. Loaded last; printed documents retain their own styles.
+   New screens should consume these tokens instead of introducing a page-specific palette. */
+:root {
+  color-scheme: light;
+  --bg: #f1f4f8;
+  --panel: #fcfdff;
+  --panel2: #eaf0f7;
+  --text: #29394e;
+  --heading: #203652;
+  --muted: #566a82;
+  --border: #d7e1ed;
+  --border-strong: #b8c8db;
+  --accent: #35669e;
+  --accent-soft: #e8f0fa;
+  --danger: #b33742;
+  --danger-soft: #fcecef;
+  --warning: #8c5b12;
+  --warning-soft: #fcf2dd;
+  --brand-50: #edf3fb;
+  --brand-100: #dfeaf8;
+  --brand-200: #bdcee7;
+  --brand-500: #477bb6;
+  --brand-600: #35699f;
+  --brand-700: #2b5685;
+  --brand-800: #274a71;
+  --brand-900: #203d5d;
+  --action: #35669e;
+  --action-hover: #2b5685;
+  --on-action: #ffffff;
+  --hover: #e5edf7;
+  --selected: #e3edf9;
+  --focus: #477bb6;
+  --ring: #477bb630;
+  --sidebar-bg: #203752;
+  --sidebar-border: #ffffff16;
+  --shadow: 0 8px 28px #18323f0a;
+  --shadow-soft: 0 3px 12px #18323f09;
+  --success: #287251;
+  --success-soft: #e6f2ec;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #142033;
+  --panel: #1e2d43;
+  --panel2: #263950;
+  --text: #e2eaf5;
+  --heading: #edf3fc;
+  --muted: #b1c1d6;
+  --border: #3b506b;
+  --border-strong: #536e8f;
+  --accent: #a9c9ef;
+  --accent-soft: #2a4260;
+  --danger: #ffafb6;
+  --danger-soft: #4a2c37;
+  --warning: #edc77f;
+  --warning-soft: #413a2b;
+  --brand-50: #253d59;
+  --brand-100: #2d4969;
+  --brand-200: #405f84;
+  --brand-500: #7ba6d8;
+  --brand-600: #99bce7;
+  --brand-700: #afcef2;
+  --brand-800: #c3d9f4;
+  --brand-900: #dce9fa;
+  --action: #a9c9ef;
+  --action-hover: #c2daf6;
+  --on-action: #203752;
+  --hover: #304761;
+  --selected: #2d4867;
+  --focus: #a9c9ef;
+  --ring: #a9c9ef30;
+  --sidebar-bg: #192c44;
+  --sidebar-border: #3b506b;
+  --shadow: 0 8px 28px #00000020;
+  --shadow-soft: 0 3px 12px #00000018;
+  --success: #9bd5b9;
+  --success-soft: #28473c;
+}
+
+/* Bridge existing workspace names to one source of truth in either theme. */
+:root:is(:root, [data-theme]) .topbar.tb-shell, :root[data-theme] .topbar.tb-shell {
+  --tb-surface: var(--panel);
+  --tb-soft: var(--panel2);
+  --tb-text: var(--text);
+  --tb-muted: var(--muted);
+  --tb-line: var(--border);
+  --tb-green: var(--accent);
+  --tb-accent: var(--accent);
+  --tb-hover: var(--hover);
+}
+:root:is(:root, [data-theme]) #viewDashboard, :root[data-theme] #viewDashboard {
+  --db-surface: var(--panel);
+  --db-soft: var(--panel2);
+  --db-text: var(--text);
+  --db-muted: var(--muted);
+  --db-line: var(--border);
+  --db-green: var(--accent);
+  --db-accent: var(--accent);
+  --db-hover: var(--hover);
+}
+:root:is(:root, [data-theme]) #viewReceipts, :root[data-theme] #viewReceipts {
+  --rx-surface: var(--panel);
+  --rx-soft: var(--panel2);
+  --rx-text: var(--text);
+  --rx-muted: var(--muted);
+  --rx-line: var(--border);
+  --rx-green: var(--accent);
+  --rx-accent: var(--accent);
+  --rx-hover: var(--hover);
+}
+:root:is(:root, [data-theme]) #viewReports, :root[data-theme] #viewReports {
+  --rp-surface: var(--panel);
+  --rp-soft: var(--panel2);
+  --rp-text: var(--text);
+  --rp-muted: var(--muted);
+  --rp-line: var(--border);
+  --rp-green: var(--accent);
+  --rp-accent: var(--accent);
+  --rp-hover: var(--hover);
+}
+:root:is(:root, [data-theme]) #viewStats, :root[data-theme] #viewStats {
+  --sx-surface: var(--panel);
+  --sx-soft: var(--panel2);
+  --sx-text: var(--text);
+  --sx-muted: var(--muted);
+  --sx-line: var(--border);
+  --sx-green: var(--accent);
+  --sx-accent: var(--accent);
+  --sx-hover: var(--hover);
+}
+
+:root:is(:root, [data-theme]) #viewReports.cr-active, :root[data-theme] #viewReports.cr-active {
+  --rp-surface: var(--panel); --rp-soft: var(--panel2); --rp-text: var(--text);
+  --rp-muted: var(--muted); --rp-line: var(--border); --rp-accent: var(--accent);
+  --cr-tint: var(--accent-soft); --cr-input: var(--panel);
+  --cr-primary: var(--action); --cr-primary-hover: var(--action-hover);
+  --cr-primary-text: var(--on-action);
+  --cr-disabled-bg: var(--panel2); --cr-disabled-text: var(--muted);
+}
+:root:is(:root, [data-theme]) body { background: var(--bg); }
+:root:is(:root, [data-theme]) .scene { display: none; }
+:root:is(:root, [data-theme]) .sidebar { background: var(--sidebar-bg); }
+:root:is(:root, [data-theme]) .nav a { color: #c0d0d8; }
+:root:is(:root, [data-theme]) .nav a:hover { background: #ffffff0c; color: #fff; }
+:root:is(:root, [data-theme]) .nav a.active { background: #355779; border-color: #567b9f; color: #fff; box-shadow: none; }
+:root:is(:root, [data-theme]) .nav a.active::before { background: #b1cef1; }
+:root:is(:root, [data-theme]) .topbar.tb-shell { background: var(--panel); }
+:root:is(:root, [data-theme]) .tb-profile-card { background: var(--accent-soft); }
+:root:is(:root, [data-theme]) .tb-profile-card #authBadge, :root:is(:root, [data-theme]) .tb-profile-card p { color: var(--muted); }
+:root:is(:root, [data-theme]) .tb-profile-card .tb-eyebrow { color: var(--accent); }
+:root:is(:root, [data-theme]) .tb-wallet, :root:is(:root, [data-theme]) .tb-privacy[aria-pressed=true] { background: var(--accent-soft); }
+
+/* Resolve legacy text-fill overrides; labels now follow their visible foreground. */
+:root:is(:root, [data-theme]) :is(button, input, select, textarea, option, .btn) { -webkit-text-fill-color: currentColor !important; }
+:root:is(:root, [data-theme]) .input, :root:is(:root, [data-theme]) select.input, :root:is(:root, [data-theme]) select.input option,
+:root:is(:root, [data-theme]) .student-lookup-field { background: var(--panel); color: var(--text); border-color: var(--border-strong); }
+:root:is(:root, [data-theme]) .input:focus, :root:is(:root, [data-theme]) .student-lookup-field:focus-within { background: var(--panel); border-color: var(--focus); box-shadow: 0 0 0 3px var(--ring); }
+:root:is(:root, [data-theme]) input::placeholder, :root:is(:root, [data-theme]) textarea::placeholder { color: var(--muted); -webkit-text-fill-color: var(--muted); opacity: 1; }
+:root:is(:root, [data-theme]) input, :root:is(:root, [data-theme]) select, :root:is(:root, [data-theme]) textarea { accent-color: var(--action); }
+:root:is(:root, [data-theme]) :is(button, a, input, select, textarea, summary):focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+:root:is(:root, [data-theme]) .btn { background: var(--panel); color: var(--text); border-color: var(--border-strong); box-shadow: none; }
+:root:is(:root, [data-theme]) .btn:hover { background: var(--hover); border-color: var(--focus); }
+:root:is(:root, [data-theme]) .btn.primary,
+:root:is(:root, [data-theme]) .tb-shell .tb-new-payment,
+:root:is(:root, [data-theme]) #viewReceipts .rx-actions .primary,
+:root:is(:root, [data-theme]) #viewStats #statsRefreshBtn {
+  background: var(--action); color: var(--on-action) !important; border-color: var(--action); box-shadow: none;
+}
+:root:is(:root, [data-theme]) .btn.primary:hover, :root:is(:root, [data-theme]) .tb-shell .tb-new-payment:hover,
+:root:is(:root, [data-theme]) #viewReceipts .rx-actions .primary:hover, :root:is(:root, [data-theme]) #viewStats #statsRefreshBtn:hover {
+  background: var(--action-hover); border-color: var(--action-hover);
+}
+:root:is(:root, [data-theme]) .btn.danger, :root:is(:root, [data-theme]) #viewReceipts .rx-actions .danger { color: var(--danger); background: var(--danger-soft); border-color: var(--danger); }
+:root:is(:root, [data-theme]) .btn.danger:hover { background: var(--danger-soft); }
+:root:is(:root, [data-theme]) .modal-card, :root:is(:root, [data-theme]) .modal-head, :root:is(:root, [data-theme]) .cc-dialog { background: var(--panel); color: var(--text); border-color: var(--border); }
+:root:is(:root, [data-theme]) th { background: var(--panel2); color: var(--muted); border-color: var(--border); }
+:root:is(:root, [data-theme]) td { border-color: var(--border); }
+:root:is(:root, [data-theme]) tbody tr:hover td { background: var(--hover); }
+:root:is(:root, [data-theme]) .student-dropdown :is(.item:hover,.item.focused) { background: var(--hover); }
+:root:is(:root, [data-theme]) #viewReceipts tbody tr.selected td { background: var(--selected); }
+
+/* Semantic states retain meaning, with readable foregrounds on both palettes. */
+:root:is(:root, [data-theme]) :is(.ok,.status-paid,.health-status.healthy,.student-profile-chip.is-active,
+.payment-workflow-safe,.payment-confirm-status.is-ready) { color: var(--accent); background: var(--accent-soft); border-color: var(--border); }
+:root:is(:root, [data-theme]) :is(.partial,.late,.status-partial,.status-late,.health-status.warning,.payment-review-head>strong) { color: var(--warning); background: var(--warning-soft); border-color: var(--border); }
+:root:is(:root, [data-theme]) :is(.health-error,.student-profile-chip.is-alert,.cc-error) { color: var(--danger); }
+:root:is(:root, [data-theme]) .rx-state { color: var(--accent); background: var(--accent-soft); }
+:root:is(:root, [data-theme]) .rx-state.is-cancelled { color: var(--danger); background: var(--danger-soft); }
+:root:is(:root, [data-theme]) #viewDashboard .db-outstanding .v, :root:is(:root, [data-theme]) .rx-summary article:last-child strong { color: var(--warning); }
+:root:is(:root, [data-theme]) #viewDashboard .db-outstanding { border-color: var(--border-strong); }
+:root:is(:root, [data-theme]) .tb-shell .sync-badge { color: var(--accent); }
+:root:is(:root, [data-theme]) .tb-shell :is(.sync-badge.offline,.sync-badge.error,.tb-logout) { color: var(--danger) !important; }
+:root:is(:root, [data-theme]) .tb-shell .sync-badge.pending { color: var(--warning); }
+:root:is(:root, [data-theme]) #viewStats .stats-col-val { color: var(--text); }
+:root:is(:root, [data-theme]) #viewStats .stats-col-bar { background: var(--accent); }
+:root:is(:root, [data-theme]) #viewDashboard .dash-revenue-line { stroke: var(--accent); }
+:root:is(:root, [data-theme]) #viewDashboard .dash-revenue-point { fill: var(--accent); }
+:root:is(:root, [data-theme]) #viewDashboard .dash-revenue-area { fill: var(--accent-soft); }
+
+/* The configuration center follows the installation's selected appearance too. */
+:root:is(:root, [data-theme]) #controlCenter, :root:is(:root, [data-theme]) .cc-dialog {
+  --cc-bg: var(--bg); --cc-panel: var(--panel); --cc-text: var(--text);
+  --cc-muted: var(--muted); --cc-border: var(--border);
+}
+:root:is(:root, [data-theme]) #controlCenter button, :root:is(:root, [data-theme]) .cc-dialog button { background: var(--panel2); color: var(--text); border-color: var(--border-strong); }
+:root:is(:root, [data-theme]) #controlCenter button:hover, :root:is(:root, [data-theme]) .cc-dialog button:hover { background: var(--hover); }
+:root:is(:root, [data-theme]) #controlCenter .cc-layout>nav button { color: var(--text); background: transparent; }
+:root:is(:root, [data-theme]) #controlCenter .cc-layout>nav button:hover { background: var(--hover); }
+:root:is(:root, [data-theme]) #controlCenter .cc-layout>nav button[aria-current=page] { background: var(--selected); color: var(--accent); box-shadow: inset 3px 0 var(--accent); }
+:root:is(:root, [data-theme]) #controlCenter input, :root:is(:root, [data-theme]) .cc-dialog input:not([type=checkbox]), :root:is(:root, [data-theme]) .cc-dialog select { background: var(--panel); color: var(--text); border-color: var(--border-strong); }
+:root:is(:root, [data-theme]) .cc-panel h3 { color: var(--heading); }
+:root:is(:root, [data-theme]) .cc-toolbar strong span, :root:is(:root, [data-theme]) .cc-live, :root:is(:root, [data-theme]) .cc-risk { color: var(--accent); }
+:root:is(:root, [data-theme]) .cc-risk.important { color: var(--warning); }
+:root:is(:root, [data-theme]) .cc-risk.critical { color: var(--danger); }
+:root:is(:root, [data-theme]) .cc-warning, :root:is(:root, [data-theme]) .cc-confirm { color: var(--warning); background: var(--warning-soft); border-color: var(--warning); }
+:root:is(:root, [data-theme]) #ccLegacySlot { background: var(--bg); color: var(--text); }
+
+:root:is(:root, [data-theme]) .payment-workflow-step.is-active>span,
+:root:is(:root, [data-theme]) .payment-student-avatar,
+:root:is(:root, [data-theme]) .student-profile-avatar {
+  background: var(--action); color: var(--on-action); border-color: var(--action);
+}
+:root:is(:root, [data-theme]) .payment-workflow-safe>span { background: var(--panel); color: var(--accent); }
+:root:is(:root, [data-theme]) .tb-shell .sync-badge { background: transparent; }
+
+/* Quiet blue identity; green is reserved for successful operational states. */
+:root:is(:root, [data-theme]) .tb-avatar { background: #365d87; color: #f3f7fd; }
+:root:is(:root, [data-theme]) .db-collection { background: #294967; color: #f3f7fd; }
+:root:is(:root, [data-theme]) .db-ring { background: conic-gradient(#b4d0f0 var(--progress), #ffffff20 0); }
+:root:is(:root, [data-theme]) .db-ring>div { background: #294967; }
+:root:is(:root, [data-theme]) :is(.db-collection .db-eyebrow,.db-ring span,.db-collection-bottom>span,.db-collection-bottom p) { color: #cfdef0; }
+:root:is(:root, [data-theme]) :is(.ok,.status-paid,.health-status.healthy,.student-profile-chip.is-active,.payment-workflow-safe,.payment-confirm-status.is-ready) { color: var(--success); background: var(--success-soft); }
+:root:is(:root, [data-theme]) .cc-live { color: var(--success); }

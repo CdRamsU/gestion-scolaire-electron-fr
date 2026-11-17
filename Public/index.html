@@ -1,0 +1,2012 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Gestion Scolaire</title>
+  <link rel="stylesheet" href="control-center.css?v=1">
+  <script>
+    (function() {
+      try {
+        var savedTheme = localStorage.getItem("ecolepos_theme_mode_v1");
+        if (savedTheme === "dark" || savedTheme === "light") {
+          document.documentElement.setAttribute("data-theme", savedTheme);
+        }
+      } catch (_) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="styles.css?v=20260905-7" />
+  <link rel="stylesheet" href="topbar.css?v=20260908-readable1" />
+  <link rel="stylesheet" href="dashboard.css?v=20260908-readable1" />
+  <link rel="stylesheet" href="receipts-workspace.css?v=20260908-readable1" />
+  <link rel="stylesheet" href="reports-workspace.css?v=20261002-workshop" />
+  <link rel="stylesheet" href="data-quality.css?v=1" />
+  <link rel="stylesheet" href="stats-workspace.css?v=1" />
+<link rel="stylesheet" href="custom-report.css?v=20261002-workshop" />
+  <link rel="stylesheet" href="app-theme.css?v=20260922-blue1" media="screen" />
+  <link rel="stylesheet" href="payment-workspace.css?v=20260922-1" media="screen" />
+  <style>#repPrintClassControl[hidden]{display:none!important}@media print{#repPrintClassControl{display:none!important}}</style>
+  <link rel="stylesheet" href="profile-finance.css?v=20260930-1" media="screen" />
+  <link rel="stylesheet" href="duplicate-merge.css?v=20261006-1" media="screen" />
+</head>
+
+<body>
+  <div class="scene" aria-hidden="true">
+    <div class="scene-blob scene-blob-1"></div>
+    <div class="scene-blob scene-blob-2"></div>
+    <div class="scene-blob scene-blob-3"></div>
+  </div>
+  <div id="apiHostWarning" class="api-host-warning" style="display:none"></div>
+<div class="app">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">GS</span>
+      <span id="brandUserName">ETABLISSEMENT</span>
+    </div>
+    <nav class="nav" aria-label="Navigation">
+      <a class="active" href="#" data-view="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
+        <span>Tableau de bord</span>
+      </a>
+      <a href="#" data-view="payment">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 12h.01M18 12h.01"/></svg>
+        <span>Nouveau paiement</span>
+      </a>
+      <a href="#" data-view="students">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span>&Eacute;l&egrave;ves</span>
+      </a>
+      <a href="#" data-view="grades">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5V4.8A1.8 1.8 0 0 1 5.8 3H20v16H5.8A1.8 1.8 0 0 0 4 20.8"/><path d="M4 19.5A1.5 1.5 0 0 0 5.5 21H20"/><path d="m9 11 2 2 4-5"/></svg>
+        <span>Notes</span>
+      </a>
+      <a href="#" data-view="receipts">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>
+        <span>Factures / Re&ccedil;us</span>
+      </a>
+      <a href="#" data-view="spending">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg>
+        <span>D&eacute;penses</span>
+      </a>
+      <a href="#" data-view="caisse">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="5" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg>
+        <span>Caisses</span>
+      </a>
+      <a href="#" data-view="reports">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+        <span>Rapports</span>
+      </a>
+      <a href="#" id="navStats">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+        <span>Statistiques</span>
+      </a>
+      <a href="#" id="navRelances">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+        <span>Relances</span>
+      </a>
+      <a href="#" data-view="data-quality"><span aria-hidden="true">◇</span><span>Qualité des données</span></a>
+      <a href="#" data-view="settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+        <span>Param&egrave;tres</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Content -->
+  <main class="content">
+    <header class="topbar tb-shell" aria-label="Barre de travail">
+      <div class="tb-main">
+        <div class="tb-context">
+          <div class="tb-breadcrumb"><span>Gestion Scolaire</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg> <span>Espace de travail</span></div>
+          <h1 id="tbPageTitle">Tableau de bord</h1>
+        </div>
+        <div class="tb-balance-wrap">
+          <button class="tb-balance" type="button" data-tb-toggle="tbBalancePanel" aria-expanded="false" aria-controls="tbBalancePanel" aria-label="Voir le détail du solde du jour">
+            <span class="tb-wallet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 8V5a2 2 0 0 0-2-2H6a3 3 0 0 0 0 6h14v12H6a3 3 0 0 1-3-3V6"/><path d="M20 12h-5v5h5"/><path d="M16.5 14.5h.1"/></svg></span>
+            <span class="tb-balance-content"><span class="tb-balance-label">Solde du jour <span class="tb-tag">MINERVAL</span></span><span class="tb-amounts"><span class="tb-money" id="topDailyBalance">$0</span><span class="tb-amount-divider"></span><span class="tb-money tb-cdf" id="topDailyBalanceCDF">0 CDF</span></span></span>
+            <span class="tb-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+          </button>
+          <button class="tb-icon-button tb-privacy" id="tbPrivacy" type="button" aria-label="Masquer les soldes" aria-pressed="false" title="Masquer les soldes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button>
+          <section class="tb-popover tb-balance-panel" id="tbBalancePanel" aria-label="Détail du solde" hidden>
+            <div class="tb-panel-heading"><span class="tb-eyebrow">VOTRE CAISSE</span><h2>Le solde, en détail.</h2><p>Caisse Minerval · cumul jusqu’à aujourd’hui, dans l’année scolaire active.</p></div>
+            <div class="tb-breakdown" id="tbBalanceBreakdown"></div>
+            <p class="tb-panel-note">Les devises restent séparées. Le montant de l’en-tête conserve le calcul existant et affiche zéro si le solde est négatif.</p>
+            <button class="tb-menu-item" data-tb-view="caisse" type="button">Ouvrir les caisses <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></button>
+          </section>
+        </div>
+        <div class="tb-actions">
+          <button id="paletteOpenBtn" class="tb-icon-button tb-search" type="button" aria-label="Rechercher un élève" title="Rechercher un élève (Cmd/Ctrl+K)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg> <kbd id="tbSearchKey">⌘ K</kbd></button>
+          <button class="tb-new-payment" id="tbNewPayment" type="button" data-tb-view="payment" title="Ouvrir un nouveau paiement"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg> <span>Paiement</span></button>
+          <div class="tb-profile-wrap">
+            <button class="tb-profile" type="button" data-tb-toggle="tbProfilePanel" aria-expanded="false" aria-controls="tbProfilePanel" aria-label="Ouvrir mon profil">
+              <span class="tb-avatar" aria-hidden="true"><span id="tbInitials">—</span><i></i></span>
+              <span class="tb-user-copy"><strong id="cashierName">—</strong><span id="tbRole">Session</span></span>
+              <span class="tb-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+            </button>
+            <section class="tb-popover tb-profile-panel" id="tbProfilePanel" aria-label="Profil connecté" hidden>
+              <div class="tb-profile-card"><span class="tb-profile-art" aria-hidden="true">G</span><span class="tb-eyebrow">VOTRE ESPACE</span><h2 id="tbProfileName">—</h2><span id="authBadge">—</span><p id="tbProfileSchool">Gestion Scolaire</p></div>
+              <div class="tb-profile-session"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6l8-3Z"/><path d="m8 12 3 3 5-6"/></svg> <span>Session authentifiée <small>Vos accès suivent votre rôle.</small></span></div>
+              <button class="tb-menu-item" type="button" data-tb-view="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3"/><circle cx="15" cy="17" r="3"/></svg> <span>Préférences & configuration</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></button>
+              <button class="tb-menu-item" id="tbTheme" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 13a9 9 0 0 1-10-10 9 9 0 1 0 10 10Z"/></svg> <span>Mode sombre</span><span class="tb-switch" aria-hidden="true"></span></button>
+              <div class="tb-menu-divider"></div>
+              <button id="logoutBtn" class="tb-menu-item tb-logout" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4H4v16h5M10 12h11m-4-4 4 4-4 4"/></svg> <span>Se déconnecter</span></button>
+            </section>
+          </div>
+        </div>
+      </div>
+      <div class="tb-meta">
+        <div class="tb-meta-left"><span class="tb-meta-item" title="Date de ce poste"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M16 3v4M8 3v4M3 11h18"/></svg> <span id="todayDate">—</span></span><span class="tb-meta-item"><span class="tb-meta-label">Période</span><span id="topPeriod">—</span></span><span class="tb-meta-item tb-rate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h15l-4-4M20 17H5l4 4M19 7l-4 4M5 17l4-4"/></svg> <span id="rateLabel">Taux: —</span></span></div>
+        <div class="tb-meta-right">
+          <button class="tb-receipt-copy" id="tbCopyReceipt" type="button" title="Copier le numéro de reçu affiché"><span class="tb-meta-label">Reçu</span><span id="receiptNoTop">—</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M15 8V3H3v12h5"/></svg></button>
+          <div class="tb-connection-wrap">
+            <button class="tb-connection" data-tb-toggle="tbConnectionPanel" type="button" aria-controls="tbConnectionPanel" aria-expanded="false"><span id="syncBadge" class="sync-badge">Connexion…</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+            <section class="tb-popover tb-connection-panel" id="tbConnectionPanel" aria-label="Connexion locale" hidden>
+              <div class="tb-panel-heading"><span class="tb-eyebrow">CONNEXION</span><h2>Votre installation.</h2><p id="tbConnectionDescription">État de la connexion à Gestion Scolaire.</p></div>
+              <div class="tb-server"><span>Serveur local</span><strong id="serverAddressBadge">—</strong></div>
+              <p class="tb-panel-note">Gestion Scolaire utilise votre serveur local et votre base PostgreSQL.</p>
+              <button class="tb-menu-item" id="tbRefresh" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M6 6a8 8 0 0 1 13 2M5 16a8 8 0 0 0 13 2"/></svg> <span>Actualiser les données</span></button>
+              <div id="tbRefreshStatus" class="tb-refresh-status" role="status"></div>
+            </section>
+          </div>
+        </div>
+      </div>
+      <div class="tb-toast" id="tbToast" role="status" aria-live="polite" hidden></div>
+    </header>
+
+    <div class="container">
+
+      <!-- VIEW: Dashboard -->
+      <div id="viewDashboard" class="view active">
+        <div class="db-heading">
+          <div><div class="db-eyebrow">PILOTAGE DE L’ÉCOLE</div><h2>Une vue claire. Chaque jour.</h2><p>Effectifs, recouvrement et activité financière au même endroit.</p></div>
+          <div class="db-period"><label for="dashMonth">Période analysée</label><div><button type="button" id="dbPrev" aria-label="Mois précédent">‹</button><select id="dashMonth" class="input"></select><button type="button" id="dbNext" aria-label="Mois suivant">›</button></div><span id="dbYear"></span></div>
+        </div>
+        <div class="dash-cards">
+          <article class="dash-card"><div class="k"><span>Élèves actifs</span><span class="db-card-icon">01</span></div><div class="v" id="dashTotalStudents">0</div><div class="db-card-foot">Effectif de l’année scolaire</div></article>
+          <article class="dash-card"><div class="k"><span>Élèves à jour</span><span class="db-card-icon">02</span></div><div class="v" id="dashPaidStudents">0</div><div class="db-card-foot">Minerval · période sélectionnée</div></article>
+          <article class="dash-card"><div class="k"><span>Montant attendu</span><span class="db-card-icon">03</span></div><div class="v small" id="dashExpectedUSD">—</div><div class="s">Équivalent <span id="dashExpectedCDF">—</span></div><div class="db-card-foot">Minerval mensuel des élèves actifs</div></article>
+          <article class="dash-card db-outstanding"><div class="k"><span>Reste à recouvrer</span><span class="db-card-icon">04</span></div><div class="v small" id="dashRemainUSD">—</div><div class="s">Équivalent <span id="dashRemainCDF">—</span></div><div class="db-card-foot">Solde dû · période sélectionnée</div></article>
+        </div>
+        <div class="db-main-grid">
+          <section id="dashRevenuePanel" class="dash-panel">
+            <div class="db-panel-heading"><div><span class="db-eyebrow">TENDANCE ANNUELLE</span><h3>Les revenus, mois par mois</h3></div><button id="dashRevenueToggle" class="dash-collapse-btn" type="button" aria-expanded="true" aria-controls="dashRevenueBody">Masquer</button></div>
+            <div id="dashRevenueBody" class="body"><p class="db-caption">Tous frais · équivalent USD · sélectionnez un point pour voir le montant.</p><div id="dashRevenueChart" class="dash-revenue-wrap"></div><details class="db-chart-data"><summary>Voir les valeurs du graphique</summary><div id="dbRevenueValues"></div></details></div>
+          </section>
+          <section class="db-collection"><div class="db-eyebrow">RECOUVREMENT DU MOIS</div><h3>Chaque paiement compte.</h3><div class="db-ring" id="dbRing"><div><strong id="dbCollectionRate">—</strong><span>du montant attendu couvert</span></div></div><div class="db-collection-bottom"><span id="dbCovered">—</span><p id="dbAttention" role="status">Chargement des données locales…</p></div></section>
+        </div>
+        <div class="db-actions" aria-label="Actions rapides"><span>PASSER À L’ACTION</span><button type="button" data-db-view="payment"><b>＋</b> Nouveau paiement <span>↗</span></button><button type="button" data-db-view="students"><b>◎</b> Gérer les élèves <span>↗</span></button><button type="button" data-db-view="reports"><b>▤</b> Consulter les rapports <span>↗</span></button></div>
+        <div class="dash-panels db-bottom-grid">
+          <section class="dash-panel"><div class="db-panel-heading"><div><span class="db-eyebrow">MINERVAL · PÉRIODE SÉLECTIONNÉE</span><h3>Répartition par niveau</h3></div></div><div class="body bars" id="dashBars"></div><div class="body db-level-table"><div class="table-wrap"><table><thead><tr><th>Niveau</th><th>Élèves</th><th>À jour</th><th>Taux</th><th>Reste USD</th></tr></thead><tbody id="dashLevelTbody"></tbody></table></div></div></section>
+          <section class="dash-panel"><div class="db-panel-heading"><div><span class="db-eyebrow">ACTIVITÉ · PÉRIODE SÉLECTIONNÉE</span><h3>Derniers paiements</h3></div><button type="button" class="db-text-button" data-db-view="receipts">Historique ↗</button></div><div id="dbRecent" class="db-recent"></div><div class="db-panel-foot">Tous frais · montants dans la devise du reçu</div></section>
+        </div>
+        <div class="db-footer"><span>Calculé à partir des données disponibles sur ce poste.</span><span>Équivalents CDF au taux configuré · aucune devise additionnée.</span></div>
+      </div>
+
+      <!-- VIEW: Payment (POS) -->
+      <div id="viewPayment" class="view">
+        <!-- Hidden elements kept for JS compatibility -->
+        <div style="display:none">
+          <input id="studentSearch" />
+          <select id="classFilter">
+            <option value="">Classe (Toutes)</option>
+          </select>
+          <select id="statusFilter">
+            <option value="">Statut (Tous)</option>
+            <option value="A jour">&Agrave; jour</option>
+            <option value="Partiel">Partiel</option>
+            <option value="En retard">En retard</option>
+          </select>
+          <div id="studentList"></div>
+          <div id="studentsSourceHint"></div>
+        </div>
+
+        <div class="payment-workflow-shell payment-compact">
+          <div class="payment-workflow-heading">
+            <div>
+              <div class="grades-eyebrow">Caisse</div>
+              <h2>Nouveau paiement</h2>
+              <p>Identifiez l’élève, choisissez le frais demandé, puis vérifiez le montant.</p>
+            </div>
+            <div class="payment-workflow-safe"><span>&#10003;</span><div><strong>Contr&ocirc;le automatique</strong><small>Ordre des mois et trop-per&ccedil;us</small></div></div>
+          </div>
+
+          <section class="card payment-workflow-card" aria-label="Nouveau paiement">
+            <div class="body">
+              <section id="paymentWorkflowStep1" class="payment-workflow-panel">
+                <div class="payment-panel-head"><div><span>&Eacute;tape 1</span><h3>Pour quel &eacute;l&egrave;ve&nbsp;?</h3></div><p>Recherchez par nom ou matricule pour &eacute;viter les erreurs de dossier.</p></div>
+                <div class="student-lookup-wrap">
+                  <div class="student-lookup-field">
+                    <span class="lookup-icon">&#128269;</span>
+                    <input id="studentLookup" class="lookup-input" placeholder="Nom ou matricule de l'&eacute;l&egrave;ve..." autocomplete="off" />
+                  </div>
+                  <div class="student-lookup-filters">
+                    <select id="studentLookupLevelFilter" class="input">
+                      <option value="">Tous les niveaux</option>
+                      <option value="maternelle">Maternelle</option>
+                      <option value="primaire">Primaire</option>
+                      <option value="secondaire">Secondaire</option>
+                    </select>
+                  </div>
+                  <div id="studentDropdown" class="student-dropdown" style="display:none"></div>
+                </div>
+
+                <div id="paymentSelectedStudent" class="payment-selected-student is-empty">
+                  <div class="payment-student-avatar" aria-hidden="true">&#9786;</div>
+                  <div class="payment-student-main"><small>&Eacute;l&egrave;ve s&eacute;lectionn&eacute;</small><strong id="selName">Aucun &eacute;l&egrave;ve</strong><span><b id="selMat">&mdash;</b> &middot; <span id="selClass">&mdash;</span></span></div>
+                  <div class="payment-student-balance"><small>Solde de la p&eacute;riode</small><strong id="selBalance">&mdash;</strong></div>
+                  <button id="openStudentProfileFromPayment" class="btn" type="button">Voir le profil</button>
+                </div>
+                <div class="payment-actions"><span id="paymentStep1Status" class="payment-step-status">S&eacute;lectionnez un &eacute;l&egrave;ve pour continuer.</span><button id="paymentNextFee" class="btn primary" type="button" disabled>Continuer vers les frais &rarr;</button></div>
+              </section>
+
+              <section id="paymentWorkflowStep2" class="payment-workflow-panel" hidden>
+                <div class="payment-panel-head"><div><span>&Eacute;tape 2</span><h3>Que paye la famille&nbsp;?</h3></div><p>Le prochain mois exigible est appliqu&eacute; automatiquement selon les r&egrave;gles de l&rsquo;&eacute;cole.</p></div>
+                <div class="payment-context-strip"><span>&Eacute;l&egrave;ve</span><strong id="paymentStep2Student">&mdash;</strong><small id="paymentStep2Class">&mdash;</small></div>
+                <div class="payment-choice-grid">
+                  <div class="field payment-fee-field"><label for="paymentFeeSearch">Quel frais souhaitez-vous encaisser ?</label><input id="paymentFeeSearch" class="input" type="search" placeholder="Rechercher un frais…" autocomplete="off" /><select id="feeType" class="input" hidden aria-label="Type de frais"></select><div id="paymentFeeChoices" class="payment-fee-choices" role="group" aria-label="Frais disponibles"></div><div id="paymentFeeSelection" class="payment-fee-selection" role="status">Sélectionnez un élève, puis choisissez son frais.</div></div>
+                  <div class="field"><label for="monthSel">P&eacute;riode concern&eacute;e</label><select id="monthSel" class="input"><option>Janvier</option><option>Février</option><option>Mars</option><option>Avril</option><option>Mai</option><option>Juin</option><option>Juillet</option><option>Août</option><option>Septembre</option><option>Octobre</option><option>Novembre</option><option>Décembre</option></select></div>
+                </div>
+                <div id="payStatusHint" class="payment-billing-status" style="display:none">Statut paiement: &mdash;</div>
+                <div id="paidMonthsList" class="payment-paid-months" style="display:none"></div>
+                <div class="payment-actions"><button id="paymentBackStudent" class="btn" type="button">&larr; Retour</button><span id="paymentStep2Status" class="payment-step-status"></span><button id="paymentNextAmount" class="btn primary" type="button">Continuer vers le montant &rarr;</button></div>
+              </section>
+
+              <section id="paymentWorkflowStep3" class="payment-workflow-panel" hidden>
+                <div class="payment-panel-head"><div><span>&Eacute;tape 3</span><h3>Encaisser et v&eacute;rifier</h3></div><p>Saisissez ce qui est re&ccedil;u, puis relisez le r&eacute;capitulatif avant confirmation.</p></div>
+                <div class="payment-final-grid">
+                  <div class="payment-tender-fields">
+                    <div class="form-grid">
+                      <div class="field"><label id="amountLabel" for="amount">Montant re&ccedil;u</label><input id="amount" class="input payment-amount-input" inputmode="numeric" placeholder="Ex: 25 000" /></div>
+                      <div class="field"><label for="currency">Devise</label><select id="currency" class="input"><option value="USD">USD ($)</option><option value="CDF">CDF (Franc congolais)</option><option value="MIXED">Mixte (USD + CDF)</option></select></div>
+                      <div class="field" id="mixedCdfAmountField" style="display:none"><label for="mixedCdfAmount">Montant CDF re&ccedil;u</label><input id="mixedCdfAmount" class="input payment-amount-input" inputmode="numeric" placeholder="Ex: 25 000" /></div>
+                      <div class="field payment-span2"><div id="fxHint" class="payment-fx-hint">Conversion: &mdash;</div></div>
+                      <div class="field payment-span2"><label for="note">Commentaire <span>(optionnel)</span></label><textarea id="note" class="input" placeholder="Ex: acompte remis par le parent..."></textarea></div>
+                    </div>
+                  </div>
+                  <aside class="payment-review" aria-label="R&eacute;capitulatif du paiement">
+                    <div class="payment-review-head"><span>R&eacute;capitulatif</span><strong>&Agrave; confirmer</strong></div>
+                    <dl><div><dt>&Eacute;l&egrave;ve</dt><dd id="paymentReviewStudent">&mdash;</dd></div><div><dt>Frais</dt><dd id="paymentReviewFee">&mdash;</dd></div><div><dt>P&eacute;riode</dt><dd id="paymentReviewMonth">&mdash;</dd></div><div><dt>Montant re&ccedil;u</dt><dd id="paymentReviewAmount">&mdash;</dd></div><div><dt>Solde actuel</dt><dd id="paymentReviewBalance">&mdash;</dd></div></dl>
+                    <div class="payment-review-note"><span>&#128274;</span> Le paiement sera enregistr&eacute; localement puis synchronis&eacute;.</div>
+                  </aside>
+                </div>
+                <div id="paymentConfirmStatus" class="payment-confirm-status" aria-live="polite">Saisissez un montant valide pour activer la confirmation.</div>
+                <div class="payment-actions payment-final-actions"><button id="paymentBackFee" class="btn" type="button">&larr; Retour</button><button id="confirmBtn" class="confirm" disabled>&#10003; Confirmer et imprimer</button></div>
+              </section>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- VIEW: Students (NEW) -->
+      <div id="viewStudents" class="view">
+        <section class="enrollment-shell">
+          <div class="enrollment-heading">
+            <div>
+              <div class="grades-eyebrow">Admissions</div>
+              <h2>Inscrire un &eacute;l&egrave;ve</h2>
+              <p>Un parcours guid&eacute; pour cr&eacute;er un dossier complet sans doublon.</p>
+            </div>
+            <div class="enrollment-year"><span>Ann&eacute;e scolaire</span><strong id="stEnrollmentYear">&mdash;</strong></div>
+          </div>
+
+          <div class="enrollment-progress" aria-label="Progression de l'inscription">
+            <button type="button" class="enrollment-step is-active" data-enrollment-step="1"><span>1</span><div><strong>&Eacute;l&egrave;ve</strong><small>Identit&eacute; et dossier</small></div></button>
+            <i></i>
+            <button type="button" class="enrollment-step" data-enrollment-step="2"><span>2</span><div><strong>Classe</strong><small>Affectation et frais</small></div></button>
+            <i></i>
+            <button type="button" class="enrollment-step" data-enrollment-step="3"><span>3</span><div><strong>Confirmation</strong><small>V&eacute;rifier et inscrire</small></div></button>
+          </div>
+
+          <div class="card enrollment-card">
+            <div class="body">
+              <section id="stEnrollmentStep1" class="enrollment-panel">
+                <div class="enrollment-panel-head"><div><span>&Eacute;tape 1</span><h3>Quel &eacute;l&egrave;ve inscrivez-vous&nbsp;?</h3></div><p>Commencez par v&eacute;rifier s&rsquo;il existe d&eacute;j&agrave; dans l&rsquo;ann&eacute;e pr&eacute;c&eacute;dente.</p></div>
+                <div class="enrollment-mode-grid">
+                  <button id="stModeNew" type="button" class="enrollment-mode is-active" aria-pressed="true"><span class="enrollment-mode-icon">+</span><div><strong>Nouvel &eacute;l&egrave;ve</strong><small>Cr&eacute;er un nouveau matricule</small></div></button>
+                  <button id="stLookupOldBtn" type="button" class="enrollment-mode" aria-pressed="false"><span class="enrollment-mode-icon">&#8635;</span><div><strong>Ancien &eacute;l&egrave;ve</strong><small>R&eacute;utiliser son matricule</small></div></button>
+                </div>
+
+                <div id="stNewStudentFields" class="enrollment-fields">
+                  <div class="field enrollment-span2"><label for="stName">Nom complet <b>*</b></label><input id="stName" class="input" autocomplete="name" placeholder="Ex: Rams Useni" /></div>
+                  <div class="field"><label for="stSex">Sexe <b>*</b></label><select id="stSex" class="input"><option value="">&mdash; Choisir &mdash;</option><option value="M">Masculin</option><option value="F">F&eacute;minin</option></select></div>
+                  <div class="field"><label for="stDateOfBirth">Date de naissance</label><input id="stDateOfBirth" class="input" inputmode="numeric" placeholder="JJ/MM/AAAA" /></div>
+                  <div class="field"><label for="stParentName">Parent / tuteur</label><input id="stParentName" class="input" placeholder="Nom complet" /></div>
+                  <div class="field"><label for="stParentPhone">T&eacute;l&eacute;phone du parent</label><input id="stParentPhone" class="input" inputmode="tel" placeholder="+243..." /></div>
+                  <div class="field enrollment-span2"><label for="stFamilyLink">Famille / fratrie</label><input id="stFamilyLink" class="input" list="stFamilyOptions" autocomplete="off" placeholder="Nouvelle famille — ou rechercher un frère / une sœur..." /><datalist id="stFamilyOptions"></datalist><div class="tiny">Tapez le nom ou le matricule d&rsquo;un enfant d&eacute;j&agrave; inscrit. Laissez vide pour cr&eacute;er une nouvelle famille.</div></div>
+                </div>
+
+                <div id="stOldLookupPanel" class="st-old-lookup-panel enrollment-old-panel" hidden>
+                  <label for="stOldLookupQuery">Rechercher dans l&rsquo;ann&eacute;e pr&eacute;c&eacute;dente</label>
+                  <input id="stOldLookupQuery" class="input" placeholder="Nom ou matricule de l&rsquo;ancien &eacute;l&egrave;ve..." autocomplete="off" />
+                  <div id="stOldLookupMeta" class="tiny">Le matricule existant sera conserv&eacute;.</div>
+                  <div id="stOldSelected" class="enrollment-old-selected" hidden></div>
+                  <div id="stOldLookupResults" class="st-old-lookup-results"></div>
+                </div>
+                <div class="enrollment-actions"><span id="stStep1Status" class="enrollment-status"></span><button id="stNextPlacement" class="btn primary" type="button">Continuer vers la classe &#8594;</button></div>
+              </section>
+
+              <section id="stEnrollmentStep2" class="enrollment-panel" hidden>
+                <div class="enrollment-panel-head"><div><span>&Eacute;tape 2</span><h3>Affectation et facturation</h3></div><p>La capacit&eacute; de la section est v&eacute;rifi&eacute;e automatiquement.</p></div>
+                <div class="enrollment-placement-grid">
+                  <div class="enrollment-placement-fields">
+                    <div class="form-grid">
+                      <div class="field"><label for="stLevel">Niveau <b>*</b></label><select id="stLevel" class="input"><option value="">&mdash; Choisir &mdash;</option><option value="maternelle">Maternelle</option><option value="primaire">Primaire</option><option value="secondaire">Secondaire</option></select></div>
+                      <div class="field"><label for="stClass">Classe <b>*</b></label><select id="stClass" class="input" disabled><option value="">&mdash; Choisir le niveau &mdash;</option></select></div>
+                      <div class="field"><label for="stCode">Section <b>*</b></label><select id="stCode" class="input" disabled><option value="">&mdash; Choisir &mdash;</option></select></div>
+                      <div class="field"><label for="stStartMonth">D&eacute;but de facturation <b>*</b></label><input id="stStartMonth" class="input" type="month" /></div>
+                      <div class="field enrollment-span2"><label for="stDue">Frais mensuels (USD)</label><input id="stDue" class="input" type="number" min="0" step="0.01" placeholder="Montant automatique" /><div class="tiny">Tarif propos&eacute; selon le niveau, modifiable avant confirmation.</div></div>
+                    </div>
+                  </div>
+                  <aside class="enrollment-placement-preview"><span>Affectation pr&eacute;vue</span><strong id="stPlacementPreview">Classe non choisie</strong><small id="stCapacityPreview">Choisissez le niveau et la classe.</small><div><span>Mensuel</span><strong id="stFeePreview">&mdash;</strong></div></aside>
+                </div>
+                <div class="enrollment-actions"><button id="stBackIdentity" class="btn" type="button">&#8592; Retour</button><span id="stStep2Status" class="enrollment-status"></span><button id="stNextReview" class="btn primary" type="button">V&eacute;rifier l&rsquo;inscription &#8594;</button></div>
+              </section>
+
+              <section id="stEnrollmentStep3" class="enrollment-panel" hidden>
+                <div class="enrollment-panel-head"><div><span>&Eacute;tape 3</span><h3>Confirmer l&rsquo;inscription</h3></div><p>Relisez les informations avant de cr&eacute;er le dossier.</p></div>
+                <div id="stEnrollmentReview" class="enrollment-review"></div>
+                <div class="enrollment-confirm-note"><span>&#10003;</span><p><strong>Apr&egrave;s confirmation</strong><br>Le profil de l&rsquo;&eacute;l&egrave;ve s&rsquo;ouvrira pour compl&eacute;ter les contacts, le bus ou une prise en charge.</p></div>
+                <div class="enrollment-actions"><button id="stBackPlacement" class="btn" type="button">&#8592; Modifier</button><span id="stStep3Status" class="enrollment-status"></span><button id="stAddBtn" class="btn primary enrollment-confirm-btn" type="button">Confirmer l&rsquo;inscription</button></div>
+              </section>
+            </div>
+            <div class="enrollment-card-foot"><span id="stApiStatus">API: &mdash;</span><button id="stRefreshBtn" class="btn" type="button">Rafra&icirc;chir les donn&eacute;es</button></div>
+          </div>
+        </section>
+
+        <details class="card settings-accordion" style="margin-top:14px" open id="studentsListCard">
+          <summary>&Eacute;l&egrave;ves &mdash; Liste</summary>
+          <div class="body">
+            <div class="form-grid" style="grid-template-columns:2fr 1fr 1fr auto;align-items:end;max-width:1100px">
+              <div class="field">
+                <label for="stListSearch">Recherche élève</label>
+                <input id="stListSearch" class="input" placeholder="Nom, ID, classe, niveau..." />
+              </div>
+              <div class="field">
+                <label for="stListLevelFilter">Niveau</label>
+                <select id="stListLevelFilter" class="input">
+                  <option value="">Tous les niveaux</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="stListClassFilter">Classe</label>
+                <select id="stListClassFilter" class="input" disabled>
+                  <option value="">Toutes les classes</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>&nbsp;</label>
+                <button id="stListPrintBtn" type="button" class="btn" style="width:100%">Imprimer la liste</button>
+              </div>
+            </div>
+            <div id="studentsListPrintHeader" style="display:none;margin:10px 0 8px 0">
+              <h3 style="margin:0 0 4px 0">Liste des élèves</h3>
+              <div id="studentsListPrintMeta" class="tiny"></div>
+            </div>
+            <div id="studentsListPrintReport" style="display:none"></div>
+            <div class="table-wrap" id="studentsListTableWrap">
+              <table style="min-width:860px">
+                <thead>
+                  <tr>
+                    <th>Matricule</th>
+                    <th>Nom</th>
+                    <th>Classe</th>
+                    <th>Niveau</th>
+                    <th>Mensuel (USD)</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="stTbody">
+                  <tr><td colspan="6" style="opacity:.7;">Chargement&hellip;</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="tiny" style="margin-top:10px">
+              * Si le serveur n&rsquo;est pas lanc&eacute;, cette page utilisera la liste DEMO (pas d&rsquo;ajout).
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- VIEW: Settings -->
+      <div id="viewSettings" class="view">
+        <div id="controlCenter" hidden></div>
+        <div id="legacySettings">
+        <details class="card settings-accordion" open>
+          <summary>Param&egrave;tres &mdash; Taux de conversion</summary>
+          <div class="body">
+            <div class="form-grid" style="grid-template-columns:1fr 1fr 1fr 1fr;max-width:980px">
+              <div class="field">
+                <label for="setUsdToCdf">TAUX (1 USD en CDF)</label>
+                <input id="setUsdToCdf" class="input" inputmode="numeric" placeholder="Ex: 2400" />
+              </div>
+              <div class="field">
+                <label>&nbsp;</label>
+                <button id="setSaveBtn" class="btn primary" style="width:100%">Enregistrer le taux</button>
+              </div>
+              <div class="field">
+                <label for="setSchoolYear">Ann&eacute;e scolaire</label>
+                <select id="setSchoolYear" class="input">
+                  <option value="">Chargement...</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>&nbsp;</label>
+                <button id="setSchoolYearSaveBtn" class="btn" style="width:100%">Enregistrer l&apos;ann&eacute;e</button>
+              </div>
+            </div>
+            <div class="form-grid" style="grid-template-columns:1fr 1fr 1fr 1fr 1fr;max-width:1180px;margin-top:10px">
+              <div class="field">
+                <label for="setLevelFeeMaternelle">Mensuel Maternelle (USD)</label>
+                <input id="setLevelFeeMaternelle" class="input" inputmode="numeric" placeholder="Ex: 30" />
+              </div>
+              <div class="field">
+                <label for="setLevelFeePrimaire">Mensuel Primaire (USD)</label>
+                <input id="setLevelFeePrimaire" class="input" inputmode="numeric" placeholder="Ex: 30" />
+              </div>
+              <div class="field">
+                <label for="setLevelFeeSecondaire">Mensuel Secondaire (USD)</label>
+                <input id="setLevelFeeSecondaire" class="input" inputmode="numeric" placeholder="Ex: 50" />
+              </div>
+              <div class="field">
+                <label for="setLevelFeeSecondaire4eH">Mensuel Secondaire 4e H (USD)</label>
+                <input id="setLevelFeeSecondaire4eH" class="input" inputmode="numeric" placeholder="Ex: 70" />
+              </div>
+              <div class="field">
+                <label>&nbsp;</label>
+                <button id="setLevelFeeSaveBtn" class="btn" style="width:100%">Enregistrer les mensuels</button>
+                <button id="setMonthlyFeesOpenBtn" class="btn primary" type="button" style="width:100%;margin-top:8px">Personnaliser par mois</button>
+              </div>
+            </div>
+            <div class="tiny" id="setStatus" style="margin-top:10px">
+              Le taux est utilis&eacute; dans le paiement, les rapports et les re&ccedil;us. Ann&eacute;e scolaire: septembre &agrave; juin.
+            </div>
+          </div>
+        </details>
+        <details id="feeDistributionSettingsCard" class="card settings-accordion" style="margin-top:14px">
+          <summary>Param&egrave;tres &mdash; R&eacute;partition des frais</summary>
+          <div class="body">
+            <div class="tiny" style="margin-bottom:10px;max-width:980px">
+              Ces valeurs alimentent le rapport annuel &laquo; R&eacute;partition des frais &raquo;. Elles sont enregistr&eacute;es pour l&apos;ann&eacute;e scolaire active.
+            </div>
+            <div class="form-grid" style="grid-template-columns:repeat(4,minmax(160px,1fr));max-width:980px">
+              <div class="field">
+                <label for="setFeeDistUniforme">Uniforme / &eacute;l&egrave;ve (USD)</label>
+                <input id="setFeeDistUniforme" class="input" inputmode="decimal" placeholder="20" />
+              </div>
+              <div class="field">
+                <label for="setFeeDistPromo">Promo / &eacute;l&egrave;ve (USD)</label>
+                <input id="setFeeDistPromo" class="input" inputmode="decimal" placeholder="10" />
+              </div>
+              <div class="field">
+                <label for="setFeeDistJournalEcusson">Journal &amp; &eacute;cusson (USD)</label>
+                <input id="setFeeDistJournalEcusson" class="input" inputmode="decimal" placeholder="6" />
+              </div>
+              <div class="field">
+                <label for="setFeeDistRate">Taux rapport (CDF / USD)</label>
+                <input id="setFeeDistRate" class="input" inputmode="numeric" placeholder="2400" />
+              </div>
+            </div>
+            <div class="field" style="max-width:980px;margin-top:10px">
+              <label>Appliquer la d&eacute;duction uniforme &agrave;</label>
+              <div class="row" style="gap:12px;flex-wrap:wrap">
+                <label class="tiny"><input type="checkbox" data-fee-dist-uniform-level value="maternelle" /> Maternelle</label>
+                <label class="tiny"><input type="checkbox" data-fee-dist-uniform-level value="primaire" /> Primaire</label>
+                <label class="tiny"><input type="checkbox" data-fee-dist-uniform-level value="secondaire" /> Secondaire</label>
+                <label class="tiny"><input type="checkbox" data-fee-dist-uniform-level value="secondaire4eH" /> 4e H</label>
+              </div>
+            </div>
+            <div class="form-grid" style="grid-template-columns:repeat(5,minmax(145px,1fr));max-width:1080px;margin-top:10px">
+              <div class="field">
+                <label for="setFeeDistAdmMat">Admission Maternelle (USD)</label>
+                <input id="setFeeDistAdmMat" class="input" inputmode="decimal" placeholder="40" />
+              </div>
+              <div class="field">
+                <label for="setFeeDistAdmPri">Admission Primaire (USD)</label>
+                <input id="setFeeDistAdmPri" class="input" inputmode="decimal" placeholder="20" />
+              </div>
+              <div class="field">
+                <label for="setFeeDistAdmSec">Admission Secondaire (USD)</label>
+                <input id="setFeeDistAdmSec" class="input" inputmode="decimal" placeholder="35" />
+              </div>
+              <div class="field">
+                <label for="setFeeDistAdm4eLow">Admission 4e H bas (USD)</label>
+                <input id="setFeeDistAdm4eLow" class="input" inputmode="decimal" placeholder="20" />
+              </div>
+              <div class="field">
+                <label for="setFeeDistAdm4eHigh">Admission 4e H haut (USD)</label>
+                <input id="setFeeDistAdm4eHigh" class="input" inputmode="decimal" placeholder="35" />
+              </div>
+            </div>
+            <div class="form-grid" style="grid-template-columns:1fr 1fr 1fr 2fr auto;align-items:end;max-width:1180px;margin-top:10px">
+              <div class="field">
+                <label for="setFeeDistMinervalMonthly">Minerval / &eacute;l&egrave;ve / mois (USD)</label>
+                <input id="setFeeDistMinervalMonthly" class="input" inputmode="decimal" placeholder="10" />
+              </div>
+              <div class="field">
+                <label for="setFeeDistMinervalMonths">Nombre de mois</label>
+                <input id="setFeeDistMinervalMonths" class="input" inputmode="numeric" placeholder="10" />
+              </div>
+              <div class="field">
+                <label for="setFeeDistMinerval4eHMonths">Mois 4e H seulement</label>
+                <input id="setFeeDistMinerval4eHMonths" class="input" inputmode="numeric" placeholder="9" />
+              </div>
+              <div class="field">
+                <label for="setFeeDistFourthHClasses">Classes 4e H (une par ligne)</label>
+                <textarea id="setFeeDistFourthHClasses" class="input" rows="3" placeholder="4e H - Comm. &amp; G.&#10;4e H - Coupe &amp; C."></textarea>
+              </div>
+              <button id="setFeeDistSaveBtn" class="btn primary" type="button">Enregistrer</button>
+            </div>
+            <div id="setFeeDistStatus" class="tiny" style="margin-top:10px">
+              Chargement des param&egrave;tres de r&eacute;partition...
+            </div>
+          </div>
+        </details>
+        <details class="card settings-accordion" style="margin-top:14px">
+          <summary>Param&egrave;tres &mdash; Apparence</summary>
+          <div class="body">
+            <div class="setting-toggle-row">
+              <div class="setting-toggle-copy">
+                <div class="setting-toggle-title">Fond de l'application</div>
+                <div class="tiny">Activez le mode sombre pour assombrir l'arri&egrave;re-plan et les surfaces principales sur cet appareil.</div>
+              </div>
+              <label class="switch-control" for="setThemeToggle">
+                <input id="setThemeToggle" class="switch-input" type="checkbox" />
+                <span class="switch-slider" aria-hidden="true"></span>
+                <span class="switch-label-text">Mode sombre</span>
+              </label>
+            </div>
+            <div id="setThemeStatus" class="tiny" style="margin-top:10px">
+              Th&egrave;me actuel: clair.
+            </div>
+          </div>
+        </details>
+        <details class="card settings-accordion" style="margin-top:14px">
+          <summary>Param&egrave;tres &mdash; Prix des frais (USD)</summary>
+          <div class="body">
+            <div class="form-grid" style="grid-template-columns:1fr auto;align-items:end;max-width:560px">
+              <div class="field">
+                <label for="setBusPrice">Prix Bus par d&eacute;faut (USD / mois)</label>
+                <input id="setBusPrice" class="input" inputmode="numeric" placeholder="Ex: 15" />
+              </div>
+              <button id="setBusPriceSaveBtn" class="btn" type="button">Enregistrer Bus</button>
+            </div>
+            <div id="setBusPriceStatus" class="tiny" style="margin-top:8px">
+              Tarif global Bus (les montants individuels se r&egrave;glent dans le profil &eacute;l&egrave;ve).
+            </div>
+
+            <div class="row" style="justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-top:12px;max-width:1080px">
+              <div class="tiny" style="max-width:760px">
+                Cr&eacute;ez un nouveau frais dans une fen&ecirc;tre d&eacute;di&eacute;e avec son montant, sa devise, sa fr&eacute;quence et sa port&eacute;e par niveau ou par classes.
+              </div>
+              <button id="setFeeTypeOpenBtn" class="btn primary" type="button">Ajouter un frais</button>
+            </div>
+
+            <div class="table-wrap fee-prices-wrap" style="margin-top:10px">
+              <table class="fee-prices-table">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Code</th>
+                    <th>Devise</th>
+                    <th>Fr&eacute;quence</th>
+                    <th>Mois d&ucirc;</th>
+                    <th>Port&eacute;e</th>
+                    <th>Prix actuel</th>
+                    <th>Nouveau prix</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="setFeePriceTbody"></tbody>
+              </table>
+            </div>
+            <div class="tiny" id="setFeeStatus" style="margin-top:10px">
+              Les prix des frais sont modifiables &agrave; tout moment.
+            </div>
+          </div>
+        </details>
+        <details class="card settings-accordion" style="margin-top:14px">
+          <summary>Param&egrave;tres &mdash; Classes (Ajouter / Supprimer)</summary>
+          <div class="body">
+            <div class="form-grid" style="grid-template-columns:1fr 2fr auto;align-items:end;max-width:840px">
+              <div class="field">
+                <label for="setClassLevel">Niveau</label>
+                <select id="setClassLevel" class="input">
+                  <option value="maternelle">Maternelle</option>
+                  <option value="primaire">Primaire</option>
+                  <option value="secondaire">Secondaire</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="setClassName">Classe</label>
+                <input id="setClassName" class="input" placeholder="Ex: 2e (maternelle/primaire) ou 3e H - &Eacute;lectronique (secondaire)" />
+              </div>
+              <button id="setClassAddBtn" class="btn primary" type="button">Ajouter</button>
+            </div>
+
+            <div class="table-wrap" style="margin-top:10px;max-width:840px">
+              <table style="min-width:760px">
+                <thead>
+                  <tr>
+                    <th>Niveau</th>
+                    <th>Classe</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="setClassTbody"></tbody>
+              </table>
+            </div>
+            <div class="tiny" id="setClassStatus" style="margin-top:10px">
+              Secondaire doit &ecirc;tre au format: 3e H - Option.
+            </div>
+          </div>
+        </details>
+        <details id="adminUsersSection" class="card settings-accordion" style="margin-top:14px;display:none">
+          <summary>Param&egrave;tres &mdash; Utilisateurs (Admin)</summary>
+          <div class="body">
+            <div class="form-grid" style="grid-template-columns:2fr 1fr 1fr auto;align-items:end;max-width:980px">
+              <div class="field">
+                <label for="usrName">Nom utilisateur</label>
+                <input id="usrName" class="input" placeholder="Ex: caissier2" />
+              </div>
+              <div class="field">
+                <label for="usrPass">Mot de passe</label>
+                <input id="usrPass" class="input" type="password" placeholder="Min 6 caract&egrave;res" />
+              </div>
+              <div class="field">
+                <label for="usrRole">R&ocirc;le</label>
+                <select id="usrRole" class="input">
+                  <option value="caissier">caissier</option>
+                  <option value="comptable">comptable</option>
+                  <option value="admin">admin</option>
+                </select>
+              </div>
+              <button id="usrCreateBtn" class="btn primary" type="button">Cr&eacute;er</button>
+            </div>
+
+            <div class="table-wrap" style="margin-top:10px;max-width:980px">
+              <table style="min-width:900px">
+                <thead>
+                  <tr>
+                    <th>Utilisateur</th>
+                    <th>R&ocirc;le</th>
+                    <th>Statut</th>
+                    <th>Nouveau mot de passe</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="usrTbody"></tbody>
+              </table>
+            </div>
+            <div id="usrStatus" class="tiny" style="margin-top:10px">
+              Section r&eacute;serv&eacute;e aux administrateurs.
+            </div>
+          </div>
+        </details>
+        <details id="whatsappConfigCard" class="card settings-accordion" style="margin-top:14px;display:none">
+          <summary>Relances WhatsApp &mdash; configuration (Admin)</summary>
+          <div class="body">
+            <div class="tiny" style="margin-bottom:10px;color:var(--muted)">
+              Connecte l&apos;envoi automatique des relances &agrave; l&apos;API WhatsApp Cloud (Meta). Renseignez le jeton, l&apos;ID du num&eacute;ro et le nom du mod&egrave;le approuv&eacute;. Le mod&egrave;le doit accepter 4 variables&nbsp;: nom, frais, mois, montant.
+            </div>
+            <div class="form-grid" style="grid-template-columns:1fr 1fr;gap:12px;max-width:900px">
+              <div class="field" style="grid-column:1/-1">
+                <label for="waToken">Jeton d&apos;acc&egrave;s (token)</label>
+                <input id="waToken" class="input" type="password" placeholder="Laisser vide pour conserver le jeton actuel" autocomplete="off" />
+              </div>
+              <div class="field">
+                <label for="waPhoneId">ID du num&eacute;ro (Phone Number ID)</label>
+                <input id="waPhoneId" class="input" placeholder="Ex: 123456789012345" />
+              </div>
+              <div class="field">
+                <label for="waTemplate">Nom du mod&egrave;le approuv&eacute;</label>
+                <input id="waTemplate" class="input" placeholder="Ex: relance_frais" />
+              </div>
+              <div class="field">
+                <label for="waLang">Langue du mod&egrave;le</label>
+                <input id="waLang" class="input" placeholder="fr" value="fr" />
+              </div>
+            </div>
+            <div class="row" style="margin-top:12px;gap:10px;align-items:center">
+              <button id="waSaveBtn" class="btn primary" type="button">Enregistrer</button>
+              <span id="waConfigStatus" class="tiny"></span>
+            </div>
+          </div>
+        </details>
+        <details id="busCategoriesCard" class="card settings-accordion" style="margin-top:14px;display:none">
+          <summary>Cat&eacute;gories de bus &mdash; abonnement (Admin / Caissier)</summary>
+          <div class="body">
+            <div class="tiny" style="margin-bottom:10px;color:var(--muted)">
+              D&eacute;finissez les cat&eacute;gories de bus (une par ligne&nbsp;: nom du bus, de la ligne ou du chauffeur). Elles apparaissent dans le formulaire d&apos;abonnement et permettent d&apos;imprimer la liste des abonn&eacute;s par cat&eacute;gorie.
+            </div>
+            <div class="field" style="max-width:520px">
+              <label for="busCategoriesText">Cat&eacute;gories (une par ligne)</label>
+              <textarea id="busCategoriesText" class="input" rows="6" placeholder="Bus Katuba&#10;Bus Kenya&#10;Bus Kamalondo"></textarea>
+            </div>
+            <div class="row" style="margin-top:12px;gap:10px;align-items:center">
+              <button id="busCategoriesSaveBtn" class="btn primary" type="button">Enregistrer</button>
+              <span id="busCategoriesStatus" class="tiny"></span>
+            </div>
+          </div>
+        </details>
+        <details id="auditLogCard" class="card settings-accordion" style="margin-top:14px;display:none">
+          <summary>Journal d'audit (Admin / Comptable)</summary>
+          <div class="body">
+            <div class="form-grid" style="grid-template-columns:2fr 1fr 1fr auto;align-items:end;max-width:1100px">
+              <div class="field">
+                <label for="auditSearch">Rechercher dans l&apos;activit&eacute;</label>
+                <input id="auditSearch" class="input" placeholder="Utilisateur, action, &eacute;l&eacute;ment ou d&eacute;tail..." />
+              </div>
+              <div class="field">
+                <label for="auditActionFilter">Action</label>
+                <select id="auditActionFilter" class="input">
+                  <option value="">Toutes</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="auditLimit">Afficher</label>
+                <select id="auditLimit" class="input">
+                  <option value="100">100</option>
+                  <option value="200">200</option>
+                  <option value="500">500</option>
+                </select>
+              </div>
+              <button id="auditRefreshBtn" class="btn" type="button">Actualiser</button>
+            </div>
+            <div id="auditCount" class="audit-count" aria-live="polite">&mdash;</div>
+            <div class="table-wrap audit-table-wrap">
+              <table class="audit-table">
+                <thead>
+                  <tr>
+                    <th>Activit&eacute;</th>
+                    <th>Utilisateur</th>
+                    <th>Action</th>
+                    <th>&Eacute;l&eacute;ment</th>
+                    <th>R&eacute;sum&eacute;</th>
+                  </tr>
+                </thead>
+                <tbody id="auditTbody">
+                  <tr><td colspan="5" class="tiny">Ouvrez cette section pour charger le journal.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="tiny" style="margin-top:10px">
+              Le journal est aliment&eacute; automatiquement par le serveur. Cliquez sur &laquo;&nbsp;Voir les d&eacute;tails&nbsp;&raquo; pour consulter une entr&eacute;e compl&egrave;te. Lecture seule.
+            </div>
+          </div>
+        </details>
+        <dialog id="auditDetailDialog" class="audit-detail-dialog" aria-labelledby="auditDetailTitle">
+          <div class="audit-dialog-head">
+            <div>
+              <span class="audit-dialog-eyebrow">JOURNAL D&apos;AUDIT</span>
+              <h3 id="auditDetailTitle">D&eacute;tails de l&apos;activit&eacute;</h3>
+              <div id="auditDetailMeta" class="audit-dialog-meta"></div>
+            </div>
+            <button id="auditDetailClose" class="btn audit-dialog-close" type="button" aria-label="Fermer">Fermer</button>
+          </div>
+          <div id="auditDetailBody" class="audit-dialog-body"></div>
+        </dialog>
+        </div>
+      </div>
+
+      <!-- VIEW: Receipts -->
+      <div id="viewReceipts" class="view">
+        <section class="rx-filters" aria-label="Filtrer les reçus"><div class="rx-filter-grid"><div class="field rx-search"><label for="rSearch">Rechercher un reçu</label><input id="rSearch" class="input" placeholder="Numéro de reçu, élève ou matricule…" type="search" /></div><div class="field"><label for="rCurrency">Devise</label><select id="rCurrency" class="input"><option value="">Toutes les devises</option><option value="USD">USD</option><option value="CDF">CDF</option><option value="MIXED">CDF + USD</option></select></div><div class="field"><label for="rFrom">Du</label><input id="rFrom" type="text" class="input" inputmode="numeric" placeholder="jj/mm/aaaa" /></div><div class="field"><label for="rTo">Au</label><input id="rTo" type="text" class="input" inputmode="numeric" placeholder="jj/mm/aaaa" /></div></div><div class="rx-filter-foot"><div class="rx-status" aria-label="Statut du reçu"><button type="button" data-rx-status="all" aria-pressed="true">Tous</button><button type="button" data-rx-status="valid" aria-pressed="false">Valides</button><button type="button" data-rx-status="corrected" aria-pressed="false">Corrigés</button><button type="button" data-rx-status="cancelled" aria-pressed="false">Annulés</button></div><button type="button" id="rxReset" class="rx-link">Réinitialiser les filtres ↺</button></div></section>
+        <div class="rx-summary"><article><span>Résultats</span><strong id="rxTotal">—</strong><small>Selon les filtres actifs</small></article><article><span>Reçus valides</span><strong id="rxValid">—</strong><small>Hors reçus annulés</small></article><article><span>Reçus corrigés</span><strong id="rxCorrected">—</strong><small>Traçabilité conservée</small></article><article><span>Reçus annulés</span><strong id="rxCancelled">—</strong><small>Conservés dans le registre</small></article></div>
+        <div class="rx-workspace"><section class="rx-register"><div class="rx-section-head"><div><span class="rx-eyebrow">HISTORIQUE</span><h3>Liste des paiements</h3></div><div class="rx-list-tools"><span id="rCount" role="status">0 reçu(s)</span><span id="rxExport"></span></div></div><p class="rx-table-hint">Sélectionnez une ligne pour consulter le reçu et ses actions.</p><div class="table-wrap" tabindex="0" aria-label="Liste des reçus, défilement horizontal"><table><thead><tr><th>Date / Heure</th><th>Reçu N°</th><th>Élève</th><th>Matricule</th><th>Classe</th><th>Niveau</th><th>Mois</th><th>Type</th><th>Devise</th><th>Montant</th><th>Caissier</th></tr></thead><tbody id="receiptsTbody"></tbody></table></div></section>
+        <aside class="rx-inspector" aria-label="Détails du paiement"><div class="rx-section-head"><div><span class="rx-eyebrow">REÇU SÉLECTIONNÉ</span><h3>Détails du paiement</h3></div><button type="button" id="rxCloseDetail" class="rx-link" aria-label="Fermer les détails">Fermer ×</button></div><div id="rxDetail" aria-live="polite"><div class="rx-empty"><span>▤</span><strong>Votre reçu, en détail.</strong><p>Sélectionnez un paiement dans le registre pour afficher ses informations.</p></div></div><div class="rx-actions"><button id="rReprint" class="btn primary" disabled>Imprimer une copie</button><button id="rCorrect" class="btn" disabled>Corriger le reçu</button><button id="rCancel" class="btn" disabled>Annuler le reçu</button><button id="rDelete" class="btn danger" disabled>Supprimer</button></div><p class="rx-action-note">Les actions disponibles dépendent de votre rôle et du statut du reçu.</p></aside></div>
+      </div>
+
+      <!-- VIEW: Spending -->
+      <div id="viewSpending" class="view">
+        <div class="card">
+          <h3>D&eacute;penses &mdash; Ajouter</h3>
+          <div class="body">
+            <div class="form-grid" style="grid-template-columns:1fr 1fr 1fr;">
+              <div class="field">
+                <label for="spDate">Date</label>
+                <input id="spDate" type="text" class="input" inputmode="numeric" placeholder="jj/mm/aaaa" readonly />
+              </div>
+              <div class="field">
+                <label for="spAmount">Montant</label>
+                <input id="spAmount" class="input" inputmode="decimal" placeholder="Ex: 250" />
+              </div>
+              <div class="field">
+                <label for="spCurrency">Devise</label>
+                <select id="spCurrency" class="input">
+                  <option value="USD">USD</option>
+                  <option value="CDF">CDF</option>
+                </select>
+              </div>
+              <div class="field" style="grid-column:1 / 3;">
+                <label for="spDesc">Description</label>
+                <input id="spDesc" class="input" placeholder="Ex: Salaire Janvier - Ali Useni" />
+              </div>
+              <div class="field">
+                <label>&nbsp;</label>
+                <div class="row" style="gap:8px;flex-wrap:wrap">
+                  <button id="spAddBtn" type="button" class="btn primary" style="flex:1 1 140px">Ajouter dépense</button>
+                  <button id="spCollectionBtn" type="button" class="btn" style="flex:1 1 140px">Collection DG</button>
+                </div>
+              </div>
+            </div>
+            <div class="stats" style="margin-top:12px;grid-template-columns:repeat(3,1fr);">
+              <div class="stat">
+                <div class="k">Dépenses mois sélectionné</div>
+                <div class="v" id="spTotalMonthUsd">$ 0.00</div>
+                <div class="s" id="spTotalMonthCdf">0 CDF</div>
+              </div>
+              <div class="stat">
+                <div class="k">Dépenses totales</div>
+                <div class="v" id="spTotalAllUsd">$ 0.00</div>
+                <div class="s" id="spTotalAllCdf">0 CDF</div>
+              </div>
+              <div class="stat">
+                <div class="k">Mois affiché</div>
+                <div class="v" id="spMonthLabel">&mdash;</div>
+                <div class="s">Période des dépenses</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <details class="card settings-accordion" style="margin-top:14px" open>
+          <summary>D&eacute;penses &mdash; Historique</summary>
+          <div class="body">
+            <div class="form-grid" style="grid-template-columns:2fr 1fr 1fr;">
+              <div class="field">
+                <label for="spSearch">Recherche</label>
+                <input id="spSearch" class="input" placeholder="Description / Caissier..." />
+              </div>
+              <div class="field">
+                <label for="spFrom">Date début</label>
+                <input id="spFrom" type="text" class="input" inputmode="numeric" placeholder="jj/mm/aaaa" />
+              </div>
+              <div class="field">
+                <label for="spTo">Date fin</label>
+                <input id="spTo" type="text" class="input" inputmode="numeric" placeholder="jj/mm/aaaa" />
+              </div>
+            </div>
+            <div class="table-wrap" style="margin-top:10px">
+	              <table style="min-width:900px">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Devise</th>
+	                    <th>Montant (USD)</th>
+	                    <th>Montant (CDF)</th>
+	                    <th>Caissier</th>
+	                    <th id="spActionHeader">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="spTbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- VIEW: Caisse -->
+      <div id="viewCaisse" class="view">
+        <header class="caisse-page-head">
+          <div><div class="grades-eyebrow">Tr&eacute;sorerie</div><h2>Pilotage des caisses</h2><p>Consultez les disponibilit&eacute;s, enregistrez une sortie ou terminez la journ&eacute;e.</p></div>
+          <div class="caisse-head-actions">
+            <button class="btn" type="button" data-open-caisse-panel="caisseHistoryCard">Voir l&rsquo;historique</button>
+            <button class="btn" type="button" data-open-caisse-panel="caisseTransferCard">Transfert / change</button>
+            <button class="btn primary" type="button" data-open-caisse-panel="clotureCard">Cl&ocirc;turer la journ&eacute;e</button>
+          </div>
+        </header>
+        <div class="caisse-overview" aria-label="R&eacute;sum&eacute; des caisses">
+          <div><span>Total disponible USD</span><strong id="caisseTotalUsd">&mdash;</strong><small>Toutes les caisses visibles</small></div>
+          <div><span>Total disponible CDF</span><strong id="caisseTotalCdf">&mdash;</strong><small>Toutes les caisses visibles</small></div>
+          <div><span>Caisses aliment&eacute;es</span><strong id="caisseActiveCount">0</strong><small id="caisseActiveMeta">sur 0 caisses</small></div>
+        </div>
+        <details id="caisseFeesCard" class="card settings-accordion" open>
+          <summary>Disponibilit&eacute;s par caisse</summary>
+          <div class="body">
+            <div class="caisse-list-toolbar">
+              <div><strong>Caisses aliment&eacute;es</strong><span>Cliquez sur une caisse pour enregistrer une sortie.</span></div>
+              <button id="caisseEmptyToggle" class="btn" type="button">Afficher les caisses vides</button>
+            </div>
+            <div id="caisseGrid" class="caisse-grid"></div>
+            <div id="caisseUpdatedAt" class="tiny" style="margin-top:10px">Mise &agrave; jour: &mdash;</div>
+          </div>
+        </details>
+        <details id="caisseTransferCard" class="card settings-accordion" style="margin-top:14px">
+          <summary>Transfert / change entre caisses</summary>
+          <div class="body">
+            <div class="tiny" style="margin-bottom:10px">
+              Utilisez ce bloc pour deplacer une devise d'une caisse a une autre, ou faire un change USD/CDF avec taux.
+            </div>
+            <div class="form-grid caisse-transfer-grid">
+              <div class="field">
+                <label for="caisseTransferDate">Date</label>
+                <input id="caisseTransferDate" type="text" class="input" inputmode="numeric" placeholder="jj/mm/aaaa" readonly />
+              </div>
+              <div class="field">
+                <label for="caisseTransferMonth">Mois imput&eacute;</label>
+                <select id="caisseTransferMonth" class="input" disabled></select>
+              </div>
+              <div class="field">
+                <label for="caisseTransferMode">Type</label>
+                <select id="caisseTransferMode" class="input">
+                  <option value="exchange">Change USD/CDF</option>
+                  <option value="parent_change">Change parent (CDF vers USD)</option>
+                  <option value="transfer">Transfert m&ecirc;me devise</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="caisseTransferSourceBox">Caisse source</label>
+                <select id="caisseTransferSourceBox" class="input"></select>
+              </div>
+              <div class="field">
+                <label for="caisseTransferCounterpartyBox">Caisse contrepartie</label>
+                <select id="caisseTransferCounterpartyBox" class="input"></select>
+              </div>
+              <div class="field">
+                <label for="caisseTransferSourceCurrency">Devise envoy&eacute;e</label>
+                <select id="caisseTransferSourceCurrency" class="input">
+                  <option value="USD">USD</option>
+                  <option value="CDF">CDF</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="caisseTransferAmount">Montant envoy&eacute;</label>
+                <input id="caisseTransferAmount" class="input" inputmode="numeric" placeholder="Ex: 10" />
+              </div>
+              <div class="field" id="caisseTransferCounterCurrencyField">
+                <label for="caisseTransferCounterCurrency">Devise re&ccedil;ue</label>
+                <select id="caisseTransferCounterCurrency" class="input">
+                  <option value="CDF">CDF</option>
+                  <option value="USD">USD</option>
+                </select>
+              </div>
+              <div class="field" id="caisseTransferRateField">
+                <label for="caisseTransferRate">Taux (1 USD)</label>
+                <input id="caisseTransferRate" class="input" inputmode="numeric" placeholder="Ex: 2400" />
+              </div>
+              <div class="field" style="grid-column:1/-1">
+                <label for="caisseTransferNote">Note</label>
+                <input id="caisseTransferNote" class="input" placeholder="Ex: change pour alimenter bulletin" />
+              </div>
+            </div>
+            <div id="caisseTransferPreview" class="tiny" style="margin-top:10px">Choisissez les caisses et le montant.</div>
+            <div class="row" style="justify-content:flex-end;margin-top:10px">
+              <button id="caisseTransferSubmit" class="btn primary" type="button">Enregistrer transfert / change</button>
+            </div>
+          </div>
+        </details>
+        <details id="clotureCard" class="card settings-accordion" style="margin-top:14px">
+          <summary>Cl&ocirc;ture de caisse journali&egrave;re</summary>
+          <div class="body">
+            <div class="cloture-head">
+              <div class="cloture-head-meta">
+                <div class="tiny">Comparez la caisse physique aux encaissements du jour, imprimez le rapport sign&eacute;, puis cl&ocirc;turez.</div>
+                <div id="clotureStatusBanner" class="cloture-banner" style="display:none"></div>
+              </div>
+              <button id="clotureRefreshBtn" class="btn" type="button">Recalculer</button>
+            </div>
+
+            <div class="cloture-grid">
+              <div class="cloture-expected">
+                <div class="cloture-section-title">Attendu en caisse (aujourd'hui)</div>
+                <div class="cloture-kv" id="clotureExpected"></div>
+              </div>
+
+              <div class="cloture-count">
+                <div class="cloture-section-title">Billetage &mdash; comptage physique</div>
+                <div class="cloture-denoms">
+                  <div>
+                    <div class="cloture-denom-title">USD</div>
+                    <div id="clotureDenomsUsd" class="cloture-denom-grid"></div>
+                  </div>
+                  <div>
+                    <div class="cloture-denom-title">CDF</div>
+                    <div id="clotureDenomsCdf" class="cloture-denom-grid"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="cloture-result" id="clotureResult"></div>
+
+            <div class="form-grid" style="grid-template-columns:1fr auto auto;align-items:end;margin-top:12px">
+              <div class="field">
+                <label for="clotureNote">Note (optionnel)</label>
+                <input id="clotureNote" class="input" placeholder="Ex: manque justifi&eacute; par..." />
+              </div>
+              <button id="cloturePrintBtn" class="btn" type="button">Imprimer le rapport</button>
+              <button id="clotureSaveBtn" class="btn primary" type="button">Cl&ocirc;turer la journ&eacute;e</button>
+            </div>
+            <div id="clotureSaveStatus" class="tiny" style="margin-top:8px"></div>
+          </div>
+        </details>
+
+        <details id="clotureHistoryCard" class="card settings-accordion" style="margin-top:14px">
+          <summary>Cl&ocirc;tures &mdash; Historique</summary>
+          <div class="body">
+            <div class="row" style="align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px">
+              <input id="clotureHistorySearch" class="input" type="search" placeholder="Rechercher (date, caissier, note&hellip;)" style="flex:1 1 280px;min-width:220px" />
+              <div class="tiny" id="clotureHistoryCount" style="margin:0">0 cl&ocirc;ture(s)</div>
+            </div>
+            <div class="table-wrap">
+              <table style="min-width:900px">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Caissier</th>
+                    <th>Attendu USD</th>
+                    <th>Compt&eacute; USD</th>
+                    <th>&Eacute;cart USD</th>
+                    <th>Attendu CDF</th>
+                    <th>Compt&eacute; CDF</th>
+                    <th>&Eacute;cart CDF</th>
+                    <th>Note</th>
+                    <th>Rapport</th>
+                  </tr>
+                </thead>
+                <tbody id="clotureHistoryTbody">
+                  <tr><td colspan="10" class="tiny">Aucune cl&ocirc;ture.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="row" style="justify-content:center;margin-top:10px">
+              <button id="clotureHistoryMoreBtn" class="btn" type="button" style="display:none">Voir plus</button>
+            </div>
+          </div>
+        </details>
+
+        <details id="caisseHistoryCard" class="card settings-accordion caisse-secondary-panel" style="margin-top:14px">
+          <summary>D&eacute;penses enregistr&eacute;es</summary>
+          <div class="body">
+            <div class="row" style="align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px">
+              <input id="caisseHistorySearch" class="input" type="search" placeholder="Rechercher (description, caisse, mois, caissier, montant&hellip;)" style="flex:1 1 280px;min-width:220px" />
+              <div class="tiny" id="caisseHistoryCount" style="margin:0">0 depense(s)</div>
+              <button id="caisseHistoryPrintBtn" class="btn" type="button">Imprimer cet historique</button>
+            </div>
+            <div class="table-wrap">
+              <table style="min-width:980px">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Caisse</th>
+                    <th>Mois imput&eacute;</th>
+                    <th>Description</th>
+                    <th>Devise</th>
+                    <th>Montant (USD)</th>
+                    <th>Montant (CDF)</th>
+                    <th>Caissier</th>
+                    <th id="caisseHistoryActionHeader" style="display:none">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="caisseHistoryTbody"></tbody>
+              </table>
+            </div>
+            <div class="row" style="justify-content:center;margin-top:10px">
+              <button id="caisseHistoryMoreBtn" class="btn" type="button" style="display:none">Voir plus</button>
+            </div>
+          </div>
+        </details>
+        <details id="caisseTransferHistoryCard" class="card settings-accordion caisse-secondary-panel" style="margin-top:14px">
+          <summary>Transferts et changes enregistr&eacute;s</summary>
+          <div class="body">
+            <div class="row" style="align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px">
+              <input id="caisseTransferSearch" class="input" type="search" placeholder="Rechercher (caisse, type, mois, caissier, d&eacute;tails&hellip;)" style="flex:1 1 280px;min-width:220px" />
+              <div class="tiny" id="caisseTransferCount" style="margin:0">0 mouvement(s)</div>
+            </div>
+            <div class="table-wrap">
+              <table style="min-width:1080px">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Caisse source</th>
+                    <th>Contrepartie</th>
+                    <th>Mois imput&eacute;</th>
+                    <th>D&eacute;tails</th>
+                    <th>Caissier</th>
+                    <th id="caisseTransferActionHeader" style="display:none">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="caisseTransferTbody"></tbody>
+              </table>
+            </div>
+            <div class="row" style="justify-content:center;margin-top:10px">
+              <button id="caisseTransferMoreBtn" class="btn" type="button" style="display:none">Voir plus</button>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- VIEW: Grades -->
+      <div id="viewGrades" class="view">
+        <section class="grades-head">
+          <div>
+            <div class="grades-eyebrow">Suivi acad&eacute;mique</div>
+            <h2>Notes par p&eacute;riode</h2>
+            <p>Saisie rapide sur 100. Toute note inf&eacute;rieure &agrave; 50% est un &eacute;chec.</p>
+          </div>
+          <div class="grades-head-actions">
+            <button id="gradesExportBtn" class="btn" type="button">Exporter CSV</button>
+            <button id="gradesSaveBtn" class="btn primary" type="button" disabled>Enregistrer</button>
+          </div>
+        </section>
+
+        <section class="card grades-filter-card">
+          <div class="body grades-filters">
+            <div class="field">
+              <label for="gradesLevel">Niveau</label>
+              <select id="gradesLevel" class="input">
+                <option value="primaire">Primaire &mdash; 6 p&eacute;riodes</option>
+                <option value="secondaire">Secondaire &mdash; 4 p&eacute;riodes</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="gradesClass">Classe</label>
+              <select id="gradesClass" class="input"><option value="">Toutes les classes</option></select>
+            </div>
+            <div class="field grades-period-field">
+              <label for="gradesPeriod">P&eacute;riode</label>
+              <select id="gradesPeriod" class="input"></select>
+            </div>
+            <div class="field grades-search-field">
+              <label for="gradesSearch">Rechercher</label>
+              <input id="gradesSearch" class="input" type="search" placeholder="Nom ou matricule&hellip;" />
+            </div>
+            <div class="field grades-filter-action">
+              <label>&nbsp;</label>
+              <button id="gradesFailuresBtn" class="btn" type="button" aria-pressed="false">Afficher les &eacute;checs</button>
+            </div>
+          </div>
+        </section>
+
+        <div class="grades-kpis" aria-label="R&eacute;sum&eacute; des r&eacute;sultats">
+          <article class="grades-kpi"><span>Saisies</span><strong id="gradesEntered">0 / 0</strong><small id="gradesMissing">0 &agrave; compl&eacute;ter</small></article>
+          <article class="grades-kpi"><span>Moyenne</span><strong id="gradesAverage">&mdash;</strong><small>sur 100</small></article>
+          <article class="grades-kpi is-success"><span>Taux de r&eacute;ussite</span><strong id="gradesPassRate">&mdash;</strong><small id="gradesPassed">0 r&eacute;ussite</small></article>
+          <article class="grades-kpi is-danger"><span>&Eacute;checs</span><strong id="gradesFailed">0</strong><small>note &lt; 50%</small></article>
+        </div>
+
+        <div class="grades-layout">
+          <section class="card grades-entry-card">
+            <div class="grades-card-title">
+              <div>
+                <h3 id="gradesTableTitle">Saisie des notes</h3>
+                <div id="gradesMeta" class="tiny">Chargement&hellip;</div>
+              </div>
+              <div id="gradesSaveState" class="grades-save-state" role="status">Aucune modification</div>
+            </div>
+            <div class="grades-table-wrap">
+              <table class="grades-table">
+                <thead><tr><th>&Eacute;l&egrave;ve</th><th>Matricule</th><th>Classe</th><th>Note / 100</th><th>R&eacute;sultat</th></tr></thead>
+                <tbody id="gradesTbody"></tbody>
+              </table>
+            </div>
+            <div id="gradesEmpty" class="grades-empty" hidden>Aucun &eacute;l&egrave;ve ne correspond aux filtres.</div>
+          </section>
+
+          <aside class="grades-side">
+            <section class="card">
+              <h3>&Eacute;volution des p&eacute;riodes</h3>
+              <div class="body" id="gradesTrend"></div>
+            </section>
+            <section class="card">
+              <h3>Points d&rsquo;attention</h3>
+              <div class="body grades-insights">
+                <div><span>&Eacute;checs r&eacute;p&eacute;t&eacute;s</span><strong id="gradesRepeated">0</strong></div>
+                <div><span>En progression</span><strong id="gradesImproving">0</strong></div>
+                <div><span>En baisse</span><strong id="gradesDeclining">0</strong></div>
+                <p class="tiny">Progression ou baisse: variation d&rsquo;au moins 5 points entre les deux derni&egrave;res p&eacute;riodes saisies.</p>
+              </div>
+            </section>
+          </aside>
+        </div>
+
+        <section class="card grades-report-card" id="gradesReportCard">
+          <div class="grades-report-head">
+            <div>
+              <div class="grades-eyebrow">Rapports acad&eacute;miques</div>
+              <h3 id="gradesReportTitle">Synth&egrave;se de la p&eacute;riode</h3>
+            </div>
+            <div class="grades-report-actions">
+              <select id="gradesReportType" class="input" aria-label="Type de rapport acad&eacute;mique">
+                <option value="summary">Synth&egrave;se par classe</option>
+                <option value="failures">Liste des &eacute;checs</option>
+                <option value="progress">Progression annuelle</option>
+              </select>
+              <button id="gradesPrintReportBtn" class="btn" type="button">Imprimer le rapport</button>
+            </div>
+          </div>
+          <div class="body" id="gradesReportBody"></div>
+        </section>
+      </div>
+
+      <div id="viewDataQuality" class="view">
+        <div class="dq-heading"><div><span class="dq-eyebrow">FIABILITÉ DES DOSSIERS</span><h2>Qualité des données</h2><p>Repérez les informations à compléter et les fiches à vérifier.</p></div><button id="dqScan" type="button" class="btn">Relancer l’analyse locale</button></div>
+        <div class="dq-summary"><article><span>Élèves analysés</span><strong id="dqScanned">—</strong></article><article><span>Fiches à vérifier</span><strong id="dqAffected">—</strong></article><article><span>Points à examiner</span><strong id="dqIssues">—</strong></article></div>
+        <p class="dq-notice">Contrôles en lecture seule sur les données disponibles dans ce poste. Les noms identiques sont des pistes à vérifier, pas des doublons confirmés. Aucun dossier n’est fusionné ou modifié automatiquement.</p>
+        <section class="dq-panel"><div class="dq-filters"><div><label for="dqSearch">Rechercher un élève</label><input id="dqSearch" type="search" class="input" placeholder="Nom ou matricule…" /></div><div><label for="dqKind">Type de contrôle</label><select id="dqKind" class="input"><option value="">Tous les contrôles</option><option value="duplicate">Noms identiques</option><option value="identity">Identité & matricule</option><option value="contact">Coordonnées parentales</option><option value="enrollment">Affectation scolaire</option></select></div><div><label for="dqScope">Périmètre</label><select id="dqScope" class="input"><option value="active">Élèves actifs</option><option value="all">Actifs et inactifs disponibles</option></select></div></div><div id="dqStatus" role="status"></div><div class="table-wrap"><table><thead><tr><th>Élève</th><th>Contrôle</th><th>À vérifier</th><th>Action</th></tr></thead><tbody id="dqRows"></tbody></table></div><button type="button" id="dqMore" class="btn" hidden>Afficher 50 points supplémentaires</button></section>
+      </div>
+
+      <!-- VIEW: Reports -->
+      <div id="viewReports" class="view">
+        <div class="rp-heading"><div><span class="rp-eyebrow">ANALYSE & ÉDITION</span><h2>Les bons chiffres. Au bon endroit.</h2><p>Choisissez un rapport, appliquez votre période, puis consultez ou exportez les résultats.</p></div><button type="button" id="rpFocus" aria-pressed="false">Agrandir le rapport ↗</button></div>
+        <div class="rp-workspace"><aside class="rp-library"><div class="rp-library-head"><span class="rp-eyebrow">BIBLIOTHÈQUE DE RAPPORTS</span><label for="rpSearch">Trouver un rapport</label><input id="rpSearch" type="search" class="input" placeholder="Élèves, dépenses, minerval…" /><span id="rpLibraryCount" role="status"></span></div><nav id="rpCatalog" aria-label="Rapports disponibles"></nav><p class="rp-library-note">La liste suit votre rôle et les frais configurés dans Gestion Scolaire.</p></aside>
+        <div class="rp-main"><section class="report-header-card rp-controls"><div class="rp-step"><span>01</span><div><label for="repType">Rapport sélectionné</label><select id="repType" class="input">
+                  <option value="summary">Résumé global</option>
+                  <option value="level">Résumé par niveau</option>
+                  <option value="casSocial">&Eacute;l&egrave;ves CAS SOCIAL</option>
+                  <option value="late">&Eacute;l&egrave;ves en retard</option>
+                  <option value="daily">Journalier (Entrée / Sortie / Solde)</option>
+                  <option value="dailyEntriesLevel">Entrées par jour (par niveau)</option>
+                  <option value="dailyEntriesCaisse">Entrees du jour (par caisse, hors minerval)</option>
+                  <option value="bus">Bus (Mensuel)</option>
+                  <option value="spending">Dépenses seulement</option>
+                  <option value="collectionDG">Collection DG du jour</option>
+                </select></div></div><div class="rp-period"><div class="rp-step"><span>02</span><div><label for="repDateSel" id="rpDateLabel">Date de référence</label><input id="repDateSel" type="text" class="input" inputmode="numeric" placeholder="jj/mm/aaaa" /></div></div><button id="repDateConfirm" type="button" class="btn">Appliquer la date</button></div><div id="rpDateHelp" class="rp-help">Les rapports mensuels utilisent le mois de cette date.</div><div class="rp-context"><span class="rp-context-dot"></span><div id="repHint" role="status">Période utilisée : date confirmée.</div></div></section>
+        <section id="repSingleWrap" class="card rp-output"><div class="rp-output-head"><div><span class="rp-eyebrow">RÉSULTATS</span><h3 id="rpOutputTitle">Rapport</h3></div><div class="rp-output-actions"><div id="repPrintClassControl" class="rp-print-class" hidden><label for="repPrintClass">Classes à imprimer</label><select id="repPrintClass" class="input" aria-describedby="repPrintClassHelp"><option value="">Toutes les classes</option></select><small id="repPrintClassHelp">Imprimez toutes les classes ou une seule classe du rapport.</small></div><button id="repPrintOne" class="btn" type="button">Imprimer ce rapport</button></div></div><div class="body" id="repSingleBody"></div></section></div></div>
+      </div>
+
+      <!-- VIEW: Statistiques -->
+      <div id="viewStats" class="view">
+        <div class="stats-toolbar">
+          <div class="stats-toolbar-copy">
+            <span class="sx-eyebrow">VUE ANNUELLE · GESTION SCOLAIRE</span><h2 class="stats-title">Comprendre les tendances.</h2><p class="sx-intro">Encaissements, activité et évolution des effectifs.</p>
+            <div class="tiny" id="statsMeta">Chargement des donn&eacute;es&hellip;</div>
+          </div>
+          <div class="row" style="gap:10px;flex-wrap:wrap">
+            <label class="sx-year-label" for="statsYearSel">Année scolaire</label><select id="statsYearSel" class="input" style="width:170px">
+              <option value="">Ann&eacute;e scolaire</option>
+            </select>
+            <button id="statsRefreshBtn" class="btn primary" type="button">Actualiser</button>
+          </div>
+        </div>
+
+        <div class="sx-navigation" aria-label="Afficher les statistiques"><button type="button" data-sx-view="all" aria-pressed="true">Vue d’ensemble</button><button type="button" data-sx-view="finance" aria-pressed="false">Finances & activité</button><button type="button" data-sx-view="students" aria-pressed="false">Élèves & inscriptions</button></div><p class="sx-note">Les montants financiers sont exprimés en équivalent USD. Ils ne représentent pas les espèces disponibles en caisse.</p>
+        <div id="statsHero" class="stats-hero"></div>
+
+        <div class="stats-grid">
+          <section data-sx-section="finance" class="card stats-card stats-span2">
+            <h3>Encaissements mensuels · équivalent USD</h3>
+            <div class="body" id="statsMonthlyChart"></div>
+          </section>
+          <section data-sx-section="finance" class="card stats-card">
+            <h3>R&eacute;partition par niveau</h3>
+            <div class="body" id="statsLevelDonut"></div>
+          </section>
+          <section data-sx-section="finance" class="card stats-card stats-span2">
+            <h3>Progression annuelle · équivalent USD</h3>
+            <div class="body" id="statsCumulative"></div>
+          </section>
+          <section data-sx-section="finance" class="card stats-card">
+            <h3>Par type de frais</h3>
+            <div class="body" id="statsFeeTypes"></div>
+          </section>
+          <section data-sx-section="finance" class="card stats-card">
+            <h3>Activit&eacute; par jour de la semaine</h3>
+            <div class="body" id="statsWeekday"></div>
+          </section>
+          <section data-sx-section="students" class="card stats-card">
+            <h3>&Eacute;l&egrave;ves</h3>
+            <div class="body" id="statsStudents"></div>
+          </section>
+          <section data-sx-section="students" class="card stats-card">
+            <h3>Classes les plus nombreuses (effectif actif)</h3>
+            <div class="body" id="statsTopClasses"></div>
+          </section>
+        </div>
+
+        <section data-sx-section="all" class="card stats-card stats-facts-card" style="margin-top:14px">
+          <h3>Repères de l’année</h3>
+          <div class="body">
+            <div id="statsFacts" class="stats-facts"></div>
+          </div>
+        </section>
+      </div>
+
+      <!-- VIEW: Relances -->
+      <div id="viewRelances" class="view">
+        <div class="stats-toolbar">
+          <div class="stats-toolbar-copy">
+            <div class="stats-title">Relances parents</div>
+            <div class="tiny" id="relMeta">&Eacute;l&egrave;ves en retard de paiement pour le mois choisi.</div>
+          </div>
+          <div class="row" style="gap:10px;flex-wrap:wrap">
+            <select id="relFee" class="input" style="width:190px" title="Type de frais à relancer">
+              <option value="TUITION">Minerval</option>
+            </select>
+            <input id="relMonth" type="month" class="input" style="width:170px" />
+            <button id="relRefreshBtn" class="btn primary" type="button">Actualiser</button>
+          </div>
+        </div>
+
+        <div id="relSummary" class="rel-summary"></div>
+
+        <div class="card" style="margin-top:14px">
+          <h3>Liste des retards</h3>
+          <div class="body">
+            <div class="form-grid" style="grid-template-columns:2fr 1fr 1fr auto;align-items:end;max-width:1100px">
+              <div class="field">
+                <label for="relSearch">Recherche</label>
+                <input id="relSearch" class="input" placeholder="Nom, matricule, classe..." />
+              </div>
+              <div class="field">
+                <label for="relLevelFilter">Niveau</label>
+                <select id="relLevelFilter" class="input">
+                  <option value="">Tous</option>
+                  <option value="maternelle">Maternelle</option>
+                  <option value="primaire">Primaire</option>
+                  <option value="secondaire">Secondaire</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="relClassFilter">Classe</label>
+                <select id="relClassFilter" class="input">
+                  <option value="">Toutes</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="relPhoneFilter">T&eacute;l&eacute;phone</label>
+                <select id="relPhoneFilter" class="input">
+                  <option value="">Tous</option>
+                  <option value="with">Avec t&eacute;l&eacute;phone</option>
+                  <option value="without">Sans t&eacute;l&eacute;phone</option>
+                </select>
+              </div>
+              <button id="relPrintBtn" class="btn" type="button">Imprimer convocations (s&eacute;lection)</button>
+              <button id="relWhatsappBtn" class="btn primary" type="button">Envoyer relances WhatsApp</button>
+            </div>
+            <div id="relWhatsappStatus" class="tiny" style="margin:6px 0 0;display:none"></div>
+            <div id="relCount" class="tiny" style="margin:10px 0 8px">&mdash;</div>
+            <div class="table-wrap">
+              <table style="min-width:1080px">
+                <thead>
+                  <tr>
+                    <th style="width:34px"><input id="relCheckAll" type="checkbox" /></th>
+                    <th>&Eacute;l&egrave;ve</th>
+                    <th>Classe</th>
+                    <th>Reste d&ucirc;</th>
+                    <th>Dernier paiement</th>
+                    <th>Parent</th>
+                    <th>T&eacute;l&eacute;phone</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="relTbody">
+                  <tr><td colspan="8" class="tiny">Choisissez un mois puis cliquez sur Actualiser.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="tiny" style="margin-top:10px">
+              WhatsApp ouvre un message pr&eacute;-r&eacute;dig&eacute; (n&eacute;cessite WhatsApp Web/Desktop). &laquo; Copier &raquo; copie le message pour SMS.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Receipt Preview (shared) -->
+      <div id="receiptArea" class="receipt-wrap card" style="display:none;">
+        <div class="body">
+            <div class="receipt-head">
+              <h3 style="margin:0;padding:0;border:none">Aperçu du reçu</h3>
+            <div class="row receipt-print-row">
+              <button id="printBtn" class="btn">Imprimer</button>
+              <span id="printStatus" class="print-status" aria-live="polite"></span>
+            </div>
+          </div>
+
+          <div class="receipt" id="receiptCard">
+
+            <div>
+              <div class="receipt-band">
+                <div class="receipt-band-id">
+                  <h4 id="schoolName">ETABLISSEMENT SCOLAIRE</h4>
+                  <small>&Eacute;tablissement d'enseignement</small>
+                </div>
+                <div class="receipt-stamp receipt-deco" aria-hidden="true">PAY&Eacute;</div>
+              </div>
+              <div class="line"></div>
+
+              <div class="kv">
+                <div><small>Date/Heure</small><div><strong id="rDate">&mdash;</strong></div></div>
+                <div class="kv-receiptno"><small>Re&ccedil;u N&deg;</small><div><strong id="rNo">&mdash;</strong></div></div>
+                <div><small>&Eacute;l&egrave;ve</small><div><strong id="rStudent">&mdash;</strong></div></div>
+                <div><small>Classe</small><div><strong id="rClass">&mdash;</strong></div></div>
+                <div><small>Ann&eacute;e scolaire</small><div><strong id="rSchoolYear">&mdash;</strong></div></div>
+                <div id="rMonthRow"><small>Mois</small><div><strong id="rMonth">&mdash;</strong></div></div>
+                <div><small>Type</small><div><strong id="rFee">&mdash;</strong></div></div>
+                <div class="kv-amount"><small>Montant</small><div><strong id="rAmt">&mdash;</strong></div></div>
+                <div><small>Conversion</small><div><strong id="rFx">&mdash;</strong></div></div>
+                <div><small>Mode</small><div><strong id="rMode">&mdash;</strong></div></div>
+              </div>
+
+              <div class="line"></div>
+              <div class="receipt-cashier-row">
+                <div>
+                  <small>Caissier</small>
+                  <div><strong id="rCashier">&mdash;</strong></div>
+                </div>
+                <div class="receipt-signline receipt-deco" aria-hidden="true">
+                  <span></span>
+                  <small>Signature</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="receipt-side">
+              <div class="qr">QR</div>
+              <div style="margin-top:10px;text-align:right">
+                <small>Merci de votre confiance.</small>
+              </div>
+            </div>
+          </div>
+<!-- THERMAL RECEIPT (80mm PRINT VERSION) -->
+      <div id="thermalPrint" style="display:none">
+        <pre id="thermalPre" style="margin:0; white-space:pre; font-family:monospace;"></pre>
+        <div id="thermalBarcode"></div>
+      </div>
+          <div style="margin-top:12px;color:var(--muted);font-weight:700;font-size:12px">
+            Stockage: <strong>LocalStorage</strong> (offline).
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<div id="studentProfileModal" class="modal-backdrop" style="display:none" aria-hidden="true">
+  <div class="modal-card student-profile-card" role="dialog" aria-modal="true" aria-labelledby="studentProfileTitle">
+    <div class="modal-head student-profile-head">
+      <div class="student-profile-person">
+        <div id="pfAvatar" class="student-profile-avatar" aria-hidden="true">&Eacute;L</div>
+        <div>
+          <div class="grades-eyebrow">Dossier &eacute;l&egrave;ve</div>
+          <h3 id="studentProfileTitle" style="margin:2px 0 3px;padding:0;border:none">Profil élève</h3>
+          <div id="studentProfileSubtitle" class="tiny">&mdash;</div>
+          <div class="student-profile-chips">
+            <span id="pfProfileClassChip" class="student-profile-chip">&mdash;</span>
+            <span id="pfProfileStatusChip" class="student-profile-chip is-active">Actif</span>
+            <span id="pfProfileAcademicChip" class="student-profile-chip">Notes &mdash;</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-head-actions">
+        <button id="studentProfileNewPaymentBtn" class="btn primary" type="button">Nouveau paiement</button>
+        <button id="studentProfileMergeDuplicateBtn" class="btn danger" type="button" style="display:none">Fusionner doublon</button>
+        <button id="studentProfileClose" class="btn" type="button">Fermer</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <nav class="student-profile-tabs" aria-label="Sections du profil">
+        <button class="student-profile-tab is-active" type="button" data-profile-tab="finance" aria-selected="true">Paiements</button>
+        <button class="student-profile-tab" type="button" data-profile-tab="info" aria-selected="false">Dossier élève</button>
+        <button class="student-profile-tab" type="button" data-profile-tab="overview" aria-selected="false">Résultats scolaires</button>
+      </nav>
+      <section id="profileFinanceWorkspace" aria-label="Situation financière"></section>
+
+      <section id="profileAcademicCard" class="profile-academic-card" aria-label="R&eacute;sultats acad&eacute;miques">
+        <div class="profile-academic-main">
+          <div>
+            <div class="profile-section-kicker">Performance acad&eacute;mique</div>
+            <h4 id="pfAcademicHeadline">Aucune note saisie</h4>
+            <p id="pfAcademicMeta">Les r&eacute;sultats des p&eacute;riodes appara&icirc;tront ici.</p>
+          </div>
+          <div id="pfAcademicAverage" class="profile-average-ring"><strong>&mdash;</strong><span>Moyenne</span></div>
+        </div>
+        <div id="pfAcademicPeriods" class="profile-periods"></div>
+        <div class="profile-academic-insights">
+          <div><span>Classement classe</span><strong id="pfAcademicRank">&mdash;</strong></div>
+          <div><span>&Eacute;checs</span><strong id="pfAcademicFailures">0</strong></div>
+          <div><span>Tendance</span><strong id="pfAcademicTrend">&mdash;</strong></div>
+          <button id="pfOpenGradesBtn" class="btn" type="button">Voir / saisir les notes</button>
+        </div>
+      </section>
+
+      <div class="profile-grid">
+        <section class="card profile-identity-card" id="profileIdentityCard" style="margin:0">
+          <h3>Identité</h3>
+          <div class="body">
+            <div class="kv-mini">
+              <div><small>ID</small><strong id="pfId">&mdash;</strong></div>
+              <div><small>Nom</small><strong id="pfName">&mdash;</strong></div>
+              <div><small>Classe</small><strong id="pfClass">&mdash;</strong></div>
+              <div><small>Niveau</small><strong id="pfLevel">&mdash;</strong></div>
+              <div><small>Sexe</small><strong id="pfSex">&mdash;</strong> <button id="pfSexToggleBtn" class="btn" type="button" style="margin-left:8px;padding:2px 10px;font-size:12px" title="Corriger le sexe">Corriger</button></div>
+              <div>
+                <small>Date de naissance</small>
+                <input id="pfDateOfBirth" type="text" class="input" inputmode="numeric" placeholder="JJ/MM/AAAA" />
+              </div>
+              <div>
+                <small>Date d'inscription</small>
+                <input id="pfEnrolledAt" type="text" class="input" inputmode="numeric" placeholder="JJ/MM/AAAA" />
+              </div>
+              <div><small>Mensuel (USD)</small><strong id="pfMonthlyDue">&mdash;</strong></div>
+              <div><small>Famille</small><strong id="pfFamilyName">&mdash;</strong></div>
+              <div><small>Fr&egrave;res / s&oelig;urs inscrits</small><strong id="pfSiblings">Aucun lien</strong></div>
+              <div>
+                <small>Bus</small>
+                <strong id="pfBusSub">&mdash;</strong>
+                <div class="row" style="margin-top:6px">
+                  <button id="pfBusManageBtn" class="btn" type="button">Abonné bus</button>
+                </div>
+              </div>
+              <div>
+                <small>Prise en charge (personnel)</small>
+                <strong id="pfTuitionBenefit">&mdash;</strong>
+                <div class="row" style="margin-top:6px">
+                  <button id="pfTuitionBenefitBtn" class="btn" type="button">Prise en charge</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <details class="card settings-accordion" id="profileClassChangeCard" style="margin:0">
+          <summary>Changer classe / niveau</summary>
+          <div class="body">
+            <div class="form-grid" style="grid-template-columns:1fr 1fr 1fr;">
+              <div class="field">
+                <label for="pfChangeLevel">Niveau</label>
+                <select id="pfChangeLevel" class="input">
+                  <option value="">&mdash; Choisir &mdash;</option>
+                  <option value="maternelle">Maternelle</option>
+                  <option value="primaire">Primaire</option>
+                  <option value="secondaire">Secondaire</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="pfChangeClass">Classe</label>
+                <select id="pfChangeClass" class="input" disabled>
+                  <option value="">&mdash; Choisir &mdash;</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="pfChangeCode">Code</label>
+                <select id="pfChangeCode" class="input" disabled>
+                  <option value="">&mdash; Choisir &mdash;</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="pfEffectiveMonth">Mois effectif (optionnel)</label>
+                <input id="pfEffectiveMonth" type="month" class="input" />
+              </div>
+              <div class="field" style="grid-column:2 / -1;">
+                <label for="pfChangeReason">Motif (optionnel)</label>
+                <input id="pfChangeReason" class="input" placeholder="Promotion / correction / transfert..." />
+              </div>
+            </div>
+            <div class="row" style="justify-content:flex-end;margin-top:8px">
+              <button id="pfChangeClassBtn" class="btn primary" type="button">Enregistrer changement</button>
+            </div>
+            <div id="pfChangeStatus" class="tiny" style="margin-top:8px">Réservé à admin / caissier.</div>
+          </div>
+        </details>
+      </div>
+
+      <details class="card settings-accordion" id="profileInfoCard" style="margin-top:12px">
+        <summary>Infos élève / parent / contact</summary>
+        <div class="body">
+          <div class="form-grid" style="grid-template-columns:1fr 1fr;">
+            <div class="field" style="grid-column:1 / -1;">
+              <label for="pfFullName">Nom complet de l'élève</label>
+              <input id="pfFullName" class="input" placeholder="Corriger le nom si nécessaire" />
+            </div>
+            <div class="field" style="grid-column:1 / -1;">
+              <label for="pfFamilyLink">Rattacher &agrave; une famille / fratrie</label>
+              <div class="row" style="gap:8px"><input id="pfFamilyLink" class="input" list="stFamilyOptions" autocomplete="off" placeholder="Rechercher un frère, une sœur ou une famille..." /><button id="pfFamilyLinkBtn" class="btn" type="button">Rattacher</button></div>
+              <div id="pfFamilyLinkStatus" class="tiny" style="margin-top:6px">Permet de corriger les liens familiaux des élèves déjà inscrits.</div>
+            </div>
+            <div class="field" id="pfMonthlyDueEditField">
+              <label for="pfMonthlyDueEdit">Frais mensuel (USD)</label>
+              <input id="pfMonthlyDueEdit" class="input" inputmode="decimal" placeholder="Ex: 35" />
+              <div class="tiny" style="margin-top:6px">Modification réservée à admin / caissier.</div>
+            </div>
+            <div class="field">
+              <label for="pfParentName">Nom parent / tuteur</label>
+              <input id="pfParentName" class="input" placeholder="Ex: Mme Kasongo" />
+            </div>
+            <div class="field">
+              <label for="pfParentPhone">Téléphone parent</label>
+              <input id="pfParentPhone" class="input" inputmode="tel" placeholder="+243..." />
+            </div>
+            <div class="field">
+              <label for="pfParentPhoneAlt">Téléphone secondaire</label>
+              <input id="pfParentPhoneAlt" class="input" inputmode="tel" placeholder="+243..." />
+            </div>
+            <div class="field">
+              <label for="pfEmergencyContact">Contact urgence</label>
+              <input id="pfEmergencyContact" class="input" placeholder="Nom + téléphone" />
+            </div>
+            <div class="field" style="grid-column:1 / -1;">
+              <label for="pfAddress">Adresse</label>
+              <input id="pfAddress" class="input" placeholder="Quartier, avenue, commune..." />
+            </div>
+            <div class="field" style="grid-column:1 / -1;">
+              <label for="pfStudentNote">Observations (optionnel)</label>
+              <textarea id="pfStudentNote" class="input" rows="3" placeholder="Informations complémentaires de l'élève..."></textarea>
+            </div>
+          </div>
+          <div class="row" style="justify-content:flex-end;margin-top:8px">
+            <button id="pfInfoSaveBtn" class="btn primary" type="button">Enregistrer infos</button>
+          </div>
+          <div id="pfInfoStatus" class="tiny" style="margin-top:8px">Informations élève (partagées sur tous les postes).</div>
+        </div>
+      </details>
+
+      <details class="card settings-accordion" id="profileFeeStatusCard" style="margin-top:12px">
+        <summary>Plan de frais et statuts</summary>
+        <div class="body">
+          <div class="table-wrap">
+            <table style="width:100%">
+              <thead>
+                <tr>
+                  <th>Type de frais</th>
+                  <th>Statut</th>
+                  <th>Prochain mois dû</th>
+                  <th>Mois déjà payés</th>
+                  <th>Payé (mois dû)</th>
+                  <th>Reste</th>
+                </tr>
+              </thead>
+              <tbody id="pfFeeStatusTbody">
+                <tr><td colspan="6" class="tiny">Chargement&hellip;</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="pfFeeStatusControls" class="row" style="justify-content:flex-end;gap:8px;margin-top:10px"></div>
+        </div>
+      </details>
+
+      <details class="card settings-accordion" id="profilePaymentsCard" style="margin-top:12px" open>
+        <summary>Historique des paiements</summary>
+        <div class="body">
+          <details id="pfHistoryAddWrap" style="display:none;margin-bottom:10px"><summary>Ajouter un paiement historique</summary>
+            <div class="form-grid" style="grid-template-columns:1fr 1fr 1fr 1fr;align-items:end">
+              <div class="field">
+                <label for="pfHistoryAddDate">Date paiement</label>
+                <input id="pfHistoryAddDate" type="text" class="input" inputmode="numeric" placeholder="jj/mm/aaaa" />
+              </div>
+              <div class="field">
+                <label for="pfHistoryAddMonth">Mois payé</label>
+                <input id="pfHistoryAddMonth" type="month" class="input" />
+              </div>
+              <div class="field">
+                <label for="pfHistoryAddFee">Type de frais</label>
+                <select id="pfHistoryAddFee" class="input">
+                  <option value="">&mdash; Choisir &mdash;</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="pfHistoryAddCurrency">Devise</label>
+                <select id="pfHistoryAddCurrency" class="input">
+                  <option value="USD">USD</option>
+                  <option value="CDF">CDF</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="pfHistoryAddAmount">Montant</label>
+                <input id="pfHistoryAddAmount" class="input" inputmode="numeric" placeholder="Ex: 30" />
+              </div>
+              <div class="field" style="grid-column:2 / 4">
+                <label for="pfHistoryAddNote">Note (optionnel)</label>
+                <input id="pfHistoryAddNote" class="input" placeholder="Paiement historique importé..." />
+              </div>
+              <div class="field">
+                <button id="pfHistoryAddBtn" class="btn primary" type="button" style="width:100%">Ajouter historique</button>
+              </div>
+            </div>
+            <div id="pfHistoryAddStatus" class="tiny" style="margin-top:8px">Admin / caissier.</div>
+          </details>
+          <div class="form-grid" style="grid-template-columns:1fr 1fr auto;align-items:end;max-width:760px">
+            <div class="field">
+              <label for="pfHistoryFeeFilter">Filtrer par type de frais</label>
+              <select id="pfHistoryFeeFilter" class="input">
+                <option value="">Tous</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="pfHistoryLimit">Afficher</label>
+              <select id="pfHistoryLimit" class="input">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+              </select>
+            </div>
+            <button id="pfHistoryRefresh" class="btn" type="button">Rafraîchir</button>
+          </div>
+          <div class="table-wrap" style="margin-top:10px">
+            <table style="width:100%">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Reçu</th>
+                  <th>Type</th>
+                  <th>Mois payé</th>
+                  <th>Montant</th>
+                  <th>Caissier</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="pfPaymentsTbody">
+                <tr><td colspan="7" class="tiny">Aucun paiement.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="pfHistoryControls" class="row" style="justify-content:flex-end;gap:8px;margin-top:10px"></div>
+        </div>
+      </details>
+    </div>
+  </div>
+</div>
+
+<div id="caisseSpendModal" class="modal-backdrop" style="display:none" aria-hidden="true">
+  <div class="modal-card caisse-modal-card" role="dialog" aria-modal="true" aria-labelledby="caisseSpendTitle">
+    <div class="modal-head">
+      <div>
+        <h3 id="caisseSpendTitle" style="margin:0;padding:0;border:none">Depense caisse</h3>
+        <div id="caisseSpendAvail" class="tiny">Disponible: --</div>
+      </div>
+      <button id="caisseSpendClose" class="btn" type="button">Fermer</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid" style="grid-template-columns:1fr 1fr;">
+        <div class="field">
+          <label for="caisseSpendDate">Date</label>
+          <input id="caisseSpendDate" type="text" class="input" inputmode="numeric" placeholder="jj/mm/aaaa" readonly />
+        </div>
+        <div class="field">
+          <label for="caisseSpendCurrency">Devise</label>
+          <select id="caisseSpendCurrency" class="input">
+            <option value="CDF">CDF</option>
+            <option value="USD">USD</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="caisseSpendKind">Type</label>
+          <select id="caisseSpendKind" class="input">
+            <option value="spending">Depense</option>
+            <option value="paid">Paid</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="caisseSpendAmount">Montant</label>
+          <input id="caisseSpendAmount" class="input" inputmode="numeric" placeholder="Ex: 250" />
+        </div>
+        <div class="field">
+          <label for="caisseSpendDescription">Description</label>
+          <input id="caisseSpendDescription" class="input" placeholder="Ex: Sortie caisse pour..." />
+        </div>
+      </div>
+      <div id="caisseSpendStatus" class="tiny" style="margin-top:10px"></div>
+      <div class="row" style="justify-content:flex-end;margin-top:10px">
+        <button id="caisseSpendSubmit" class="btn primary" type="button">Enregistrer depense</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="paletteBackdrop" class="palette-backdrop" style="display:none" aria-hidden="true">
+  <div class="palette-card" role="dialog" aria-modal="true" aria-label="Recherche rapide">
+    <div class="palette-input-row">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="paletteInput" class="palette-input" placeholder="Rechercher un &eacute;l&egrave;ve (nom, matricule, classe)..." autocomplete="off" spellcheck="false" />
+      <span class="palette-esc">Esc</span>
+    </div>
+    <div id="paletteResults" class="palette-results"></div>
+    <div class="palette-foot tiny">&#8593;&#8595; naviguer &middot; Entr&eacute;e ouvrir le profil &middot; Esc fermer</div>
+  </div>
+</div>
+
+<div id="appConfirmModal" class="modal-backdrop" style="display:none" aria-hidden="true">
+  <div class="modal-card confirm-modal-card" role="dialog" aria-modal="true" aria-labelledby="appConfirmTitle">
+    <div class="modal-head">
+      <div>
+        <h3 id="appConfirmTitle" style="margin:0;padding:0;border:none">Confirmation</h3>
+      </div>
+      <button id="appConfirmCancelTop" class="btn" type="button">Annuler</button>
+    </div>
+    <div class="modal-body">
+      <p id="appConfirmMessage" class="confirm-modal-message">Confirmer cette action ?</p>
+      <div class="row" style="justify-content:flex-end;gap:8px;margin-top:12px">
+        <button id="appConfirmCancel" class="btn" type="button">Annuler</button>
+        <button id="appConfirmOk" class="btn danger" type="button">Confirmer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="monthlyFeesModal" class="modal-backdrop" style="display:none" aria-hidden="true">
+  <div class="modal-card fee-type-modal-card" role="dialog" aria-modal="true" aria-labelledby="monthlyFeesTitle">
+    <div class="modal-head">
+      <div>
+        <h3 id="monthlyFeesTitle" style="margin:0">Minerval par mois</h3>
+        <div class="tiny">Personnalisez les montants de septembre à juin. Un mois déjà payé reste verrouillé au montant du premier paiement.</div>
+      </div>
+      <div class="modal-head-actions">
+        <button id="monthlyFeesCloseBtn" class="btn" type="button">Fermer</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="table-wrap">
+        <table style="min-width:820px;width:100%">
+          <thead>
+            <tr>
+              <th>Mois</th>
+              <th>Personnaliser</th>
+              <th>Maternelle (USD)</th>
+              <th>Primaire (USD)</th>
+              <th>Secondaire (USD)</th>
+              <th>4e H (USD)</th>
+            </tr>
+          </thead>
+          <tbody id="monthlyFeesTbody"></tbody>
+        </table>
+      </div>
+      <div id="monthlyFeesStatus" class="tiny" style="margin-top:10px"></div>
+      <div class="row" style="justify-content:flex-end;gap:10px;margin-top:14px">
+        <button id="monthlyFeesResetBtn" class="btn" type="button">Utiliser les tarifs par défaut</button>
+        <button id="monthlyFeesSaveBtn" class="btn primary" type="button">Enregistrer les mois</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="feeTypeCreateModal" class="modal-backdrop" style="display:none" aria-hidden="true">
+  <div class="modal-card fee-type-modal-card" role="dialog" aria-modal="true" aria-labelledby="feeTypeCreateTitle">
+    <div class="modal-head">
+      <div>
+        <h3 id="feeTypeCreateTitle" style="margin:0;padding:0;border:none">Ajouter un nouveau frais</h3>
+        <div class="tiny">Choisissez l'affectation du frais et, si besoin, des prix diff&eacute;rents par niveau ou par classe.</div>
+      </div>
+      <button id="feeTypeCreateClose" class="btn" type="button">Fermer</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid fee-type-modal-grid">
+        <div class="field">
+          <label for="setFeeTypeName">Nom du frais</label>
+          <input id="setFeeTypeName" class="input" placeholder="Ex: Biblioth&egrave;que" />
+        </div>
+        <div class="field">
+          <label for="setFeeTypePrice">Montant</label>
+          <input id="setFeeTypePrice" class="input" inputmode="numeric" placeholder="Ex: 25" />
+        </div>
+        <div class="field">
+          <label for="setFeeTypeCurrency">Devise</label>
+          <select id="setFeeTypeCurrency" class="input">
+            <option value="USD">USD</option>
+            <option value="CDF">CDF</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="setFeeTypeCycle">Fr&eacute;quence</label>
+          <select id="setFeeTypeCycle" class="input">
+            <option value="monthly">Mensuel</option>
+            <option value="annual">Annuel</option>
+          </select>
+        </div>
+        <div class="field" id="setFeeTypeDueMonthField" style="display:none">
+          <label for="setFeeTypeDueMonth">Mois d&ucirc;</label>
+          <input id="setFeeTypeDueMonth" type="month" class="input" />
+          <div class="tiny" style="margin-top:4px">Les relances regrouperont tous les &eacute;l&egrave;ves concern&eacute;s sur ce mois.</div>
+        </div>
+        <div class="field" id="setFeeTypeItemField" style="grid-column:1/-1">
+          <div class="row" style="gap:18px;align-items:center;flex-wrap:wrap">
+            <label class="fee-inline-toggle" for="setFeeTypeIsItem" style="margin:0">
+              <input id="setFeeTypeIsItem" type="checkbox" />
+              <span>Cet frais est un <strong>article vendu</strong> (sans mois, achetable plusieurs fois)</span>
+            </label>
+            <label class="fee-inline-toggle" for="setFeeTypeNoFixedPrice" style="margin:0">
+              <input id="setFeeTypeNoFixedPrice" type="checkbox" />
+              <span>Ce frais n&apos;a <strong>pas de prix fix&eacute;</strong></span>
+            </label>
+          </div>
+          <div class="tiny" style="margin-top:4px;color:var(--muted)">
+            Sans prix fix&eacute;, le caissier saisit librement le montant au moment du paiement.
+          </div>
+        </div>
+        <div class="field" style="grid-column:1/-1">
+          <label class="fee-inline-toggle" for="setFeeTypeSkipAutoPrint" style="margin:0">
+            <input id="setFeeTypeSkipAutoPrint" type="checkbox" />
+            <span>Ignorer l&apos;impression automatique lors de la confirmation du paiement</span>
+          </label>
+          <div class="tiny" style="margin-top:4px;color:var(--muted)">
+            Le re&ccedil;u reste disponible et peut toujours &ecirc;tre imprim&eacute; manuellement.
+          </div>
+        </div>
+        <div class="field">
+          <label for="feeTypeScopeMode">Affectation</label>
+          <select id="feeTypeScopeMode" class="input">
+            <option value="all">Tous les &eacute;l&egrave;ves</option>
+            <option value="level">Par niveau</option>
+            <option value="classes">Par classes</option>
+          </select>
+        </div>
+        <div id="feeTypeScopeLevelField" class="field">
+          <label for="feeTypeScopeLevelList">Niveaux concern&eacute;s</label>
+          <div id="feeTypeScopeLevelList" class="fee-class-picker-grid">
+            <label class="fee-class-option"><input type="checkbox" data-fee-scope-level value="maternelle" /><span>Maternelle</span></label>
+            <label class="fee-class-option"><input type="checkbox" data-fee-scope-level value="primaire" /><span>Primaire</span></label>
+            <label class="fee-class-option"><input type="checkbox" data-fee-scope-level value="secondaire" /><span>Secondaire</span></label>
+          </div>
+        </div>
+      </div>
+      <div id="feeTypeScopeClassesField" class="field" style="margin-top:12px">
+        <div class="row" style="justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
+          <label style="margin:0" for="feeTypeScopeClassList">Classes concern&eacute;es</label>
+          <div class="row" style="gap:8px;flex-wrap:wrap">
+            <button id="feeTypeScopeSelectAll" class="btn" type="button">Tout s&eacute;lectionner</button>
+            <button id="feeTypeScopeClear" class="btn" type="button">Effacer</button>
+          </div>
+        </div>
+        <div id="feeTypeScopeEmpty" class="tiny" style="margin-top:8px;display:none">
+          Choisissez d&apos;abord un niveau pour afficher les classes.
+        </div>
+        <div id="feeTypeScopeClassList" class="fee-class-picker-grid" style="margin-top:10px"></div>
+      </div>
+      <input id="setFeeTypeScopeClasses" type="hidden" value="" />
+      <div class="field" style="margin-top:14px">
+        <label class="fee-inline-toggle" for="feeTypePricingRulesEnabled" style="margin:0">
+          <input id="feeTypePricingRulesEnabled" type="checkbox" />
+          <span>Prix diff&eacute;rents selon niveau ou classe</span>
+        </label>
+        <div class="tiny" style="margin-top:6px">
+          Le montant ci-dessus sert de prix par d&eacute;faut. Ajoutez ici les exceptions pour un niveau ou une classe.
+        </div>
+      </div>
+      <div id="feeTypePricingRulesField" class="field" style="margin-top:12px;display:none">
+        <div class="row" style="justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
+          <label style="margin:0" for="feeTypePricingRulesList">Tarification variable</label>
+          <div class="row" style="gap:8px;flex-wrap:wrap">
+            <button id="feeTypeAddLevelRuleBtn" class="btn" type="button">Ajouter niveau</button>
+            <button id="feeTypeAddClassRuleBtn" class="btn" type="button">Ajouter classe</button>
+          </div>
+        </div>
+        <div id="feeTypePricingRulesEmpty" class="tiny" style="margin-top:8px">
+          Aucune r&egrave;gle variable. Tous les &eacute;l&egrave;ves concern&eacute;s garderont le prix par d&eacute;faut.
+        </div>
+        <div id="feeTypePricingRulesList" class="fee-pricing-rule-list" style="margin-top:10px"></div>
+      </div>
+      <div id="feeTypeScopeSummary" class="tiny" style="margin-top:12px">
+        Affectation actuelle: tous les &eacute;l&egrave;ves
+      </div>
+      <div id="feeTypeSaveStatus" class="tiny" style="margin-top:8px;display:none"></div>
+      <div class="row" style="justify-content:flex-end;gap:8px;margin-top:14px;flex-wrap:wrap">
+        <button id="feeTypeCreateCancel" class="btn" type="button">Annuler</button>
+        <button id="setFeeTypeAdd" class="btn primary" type="button">Enregistrer le frais</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="app/core.js?v=20260928-receipt-device1"></script>
+<script src="app/control-center.js?v=20260906-control1"></script>
+<script src="app/students.js?v=20260905-6"></script>
+<script src="app/grades.js?v=20260905-3"></script>
+<script src="app/receipts.js?v=20260930-profile1"></script>
+<script src="app/profile-finance.js?v=20260930-1"></script>
+<script src="app/duplicate-merge.js?v=20261006-1"></script>
+<script src="app/reports.js?v=20260922-reports-history1"></script>
+<script src="app/settings.js?v=20260724-z26"></script>
+<script src="app/spending.js?v=20260714-z2"></script>
+<script src="app/payment-fee-picker.js?v=20260922-1"></script>
+<script src="app/payments.js?v=20260928-receipt-device1"></script>
+<script src="app/stats.js?v=20260908-workspace1"></script>
+<script src="app/cloture.js?v=20260906-control1"></script>
+<script src="app/audit.js?v=20260926-audit-display-1"></script>
+<script src="app/relances.js?v=20260906-control1"></script>
+<script src="app/palette.js?v=20260611-1"></script>
+<script src="app/ui-fx.js?v=20260906-dashboard1"></script>
+<script src="app/export.js?v=20260906-receipts1"></script>
+<script src="app/topbar.js?v=20260906-2"></script>
+<script src="app/dashboard.js?v=20260906-1"></script>
+<script src="app/receipts-workspace.js?v=1"></script>
+<script src="app/reports-workspace.js?v=20261002-workshop"></script>
+<script src="app/data-quality-rules.js?v=1"></script>
+<script src="app/data-quality.js?v=1"></script>
+<script src="app/custom-report-presentation.js?v=20261002-workshop"></script>
+<script src="app/custom-report.js?v=20261002-workshop"></script>
+</body>
+</html>

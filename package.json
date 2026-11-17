@@ -1,0 +1,65 @@
+{
+  "name": "gestion-scolaire-electron",
+  "version": "1.0.0",
+  "description": "Application française et neutre de gestion scolaire avec Electron",
+  "author": "Projet Gestion Scolaire",
+  "main": "electron/main.js",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "electron .",
+    "serveur": "node server/server.js",
+    "test": "node --test tests/*.test.cjs server/test/configuration.test.js server/test/custom-report.routes.test.js server/test/custom-report.unit.test.js server/test/grades.unit.test.js server/test/report-updates.unit.test.js server/test/student-returning.unit.test.js",
+    "test:integration": "node --test --test-concurrency=1 server/test/api.integration.test.js",
+    "construire:windows": "electron-builder --win nsis"
+  },
+  "dependencies": {
+    "connect-pg-simple": "10.0.0",
+    "cors": "2.8.6",
+    "express": "5.3.0",
+    "express-session": "1.19.0",
+    "pg": "8.23.1"
+  },
+  "devDependencies": {
+    "electron": "45.3.3",
+    "electron-builder": "26.18.0"
+  },
+  "overrides": {
+    "minimatch": "11.0.9"
+  },
+  "build": {
+    "appId": "fr.gestionscolaire.bureau",
+    "productName": "Gestion Scolaire",
+    "asar": true,
+    "asarUnpack": [
+      "Public/**/*",
+      "server/**/*",
+      "node_modules/**/*",
+      "README.md"
+    ],
+    "directories": {
+      "output": "dist-electron"
+    },
+    "files": [
+      "Public/**/*",
+      "server/**/*",
+      "electron/**/*",
+      "README.md",
+      "package.json",
+      "!server/test/**/*",
+      "!server/package-lock.json"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "artifactName": "Gestion-Scolaire-${version}-Installation.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "shortcutName": "Gestion Scolaire"
+    }
+  }
+}

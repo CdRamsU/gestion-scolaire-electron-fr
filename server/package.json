@@ -1,0 +1,23 @@
+{
+  "name": "gestion-scolaire-api",
+  "version": "1.0.0",
+  "description": "API locale de Gestion Scolaire",
+  "main": "server.js",
+  "scripts": {
+    "test": "node --test --test-concurrency=1 test/api.integration.test.js",
+    "start": "node server.js",
+    "start:pg:local": "DB_CLIENT=postgres PGHOST=127.0.0.1 PGPORT=5432 PGDATABASE=ecolepos PGUSER=ecolepos_user PGPASSWORD=ecolepos_pass PGSSL=false node server.js",
+    "test:configuration": "node --test test/configuration.test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "connect-pg-simple": "10.0.0",
+    "cors": "2.8.6",
+    "express": "5.3.0",
+    "express-session": "1.19.0",
+    "pg": "8.23.1"
+  }
+}

@@ -1,0 +1,51 @@
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Secrets / local env
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+server/node_modules/
+
+# Runtime / cache
+dist/
+dist-electron/
+build/
+!build/
+build/*
+!build/icon.ico
+coverage/
+tmp/
+temp/
+.cache/
+
+# Database dumps / backups
+*.dump
+*.sql.gz
+*.bak
+*.bak_*
+ops/backups/
+server/backups/
+server/import_tmp/
+
+# Documents et archives locales non versionnés
+*.pdf
+*.zip
+
+# Python cache (if scripts are added later)
+__pycache__/
+*.pyc
+
+crash.log
