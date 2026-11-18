@@ -3,12 +3,6 @@
 Application française de gestion d’établissement scolaire : élèves, frais, paiements,
 reçus, caisse et rapports. Ce dépôt est une version neutre destinée au partage.
 
-Il ne contient :
-
-- ni nom, ni logo, ni coordonnées d’une école réelle ;
-- ni données PostgreSQL, sauvegardes ou exports ;
-- ni mécanisme de synchronisation ou de déploiement distant ;
-- ni installateur précompilé.
 
 ## Contenu
 
